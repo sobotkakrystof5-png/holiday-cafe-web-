@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="cs" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Holiday Café Dolní Bousov | Kavárna, cukrárna a zmrzlina</title>
+  <link rel="icon" type="image/png" href="assets/images/Holiday%20cafe%20logo.png">
+  <meta name="description" content="Malá kavárna a cukrárna na náměstí v Dolním Bousově. Výběrová káva, domácí zmrzlina, bubble waffle a dorty na objednávku. Na půl cesty do Českého ráje.">
+  <meta property="og:title" content="Holiday Café | Kavárna a cukrárna, Dolní Bousov">
+  <meta property="og:description" content="Výběrová káva Nordbeans, domácí zmrzlina, bubble waffle a dorty na objednávku. Zastavte se na chvíli — jako na dovolené.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="cs_CZ">
+  <meta property="og:image" content="assets/images/Holiday%20caf%C3%A9%20-%20hero%20sekce%20.jpeg">
+  <meta property="og:url" content="https://www.holidaycafe.cz/">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CafeOrCoffeeShop",
+    "name": "Holiday Café",
+    "image": "assets/images/Holiday%20caf%C3%A9%20-%20hero%20sekce%20.jpeg",
+    "url": "https://www.holidaycafe.cz/",
+    "telephone": "+420733666194",
+    "email": "jaroslavajakubcova@email.cz",
+    "vatID": "08064237",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "nám. T. G. Masaryka 270",
+      "addressLocality": "Dolní Bousov",
+      "postalCode": "294 04",
+      "addressRegion": "Středočeský kraj",
+      "addressCountry": "CZ"
+    },
+    "geo": { "@type": "GeoCoordinates", "latitude": 50.4384835, "longitude": 15.1284849 },
+    "openingHoursSpecification": [{
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Tuesday","Wednesday","Thursday","Friday","Saturday"],
+      "opens": "11:30", "closes": "17:30"
+    }],
+    "servesCuisine": ["Kavárna","Cukrárna","Zmrzlina"],
+    "priceRange": "€",
+    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "bestRating": "5", "worstRating": "1" }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'cafe-brown':       '#4A3525',
+            'cafe-brown-light': '#5C4033',
+            'cafe-brown-deep':  '#3A2A1D',
+            'cafe-cream':       '#FDFBF7',
+            'cafe-charcoal':    '#1F1B16',
+            'cafe-sand':        '#EAE0D2',
+            'cafe-gold':        '#C9A227'
+          },
+          fontFamily: {
+            display: ['"Playfair Display"', 'Georgia', 'serif'],
+            body:    ['Inter', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+    section[id], div[id="kontakt"] { scroll-margin-top: 5rem; }
+
+    /* Navbar — vždy pevně hnědá bez ohledu na sekci pod ní */
+    header { background-color: #4A3525 !important; }
+
+    /* Nav underline */
+    .nav-link { position: relative; transition: color .2s; }
+    .nav-link::after {
+      content: ""; position: absolute; left: 0; bottom: -4px;
+      width: 100%; height: 2px; background: #C9A227;
+      transform: scaleX(0); transform-origin: left; transition: transform .2s;
+    }
+    .nav-link:hover::after, .nav-link.active::after { transform: scaleX(1); }
+    .nav-link.active { color: #FDFBF7; }
+
+    /* Hamburger */
+    .hamburger span { transition: transform .3s, opacity .3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile menu slide */
+    #mobile-menu { max-height: 0; overflow: hidden; transition: max-height .4s ease; }
+    #mobile-menu.open { max-height: 32rem; }
+
+    /* Reveal animation */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* Menu tab active */
+    .menu-tab.active { background: #4A3525; border-color: #4A3525; color: #FDFBF7; }
+    .menu-panel { min-height: 180px; }
+
+    /* Price row */
+    .menu-item { display: flex; align-items: baseline; font-size: .875rem; color: #1F1B16; }
+    .menu-name  { flex: 1; min-width: 0; }
+    .menu-dots  { flex: 0 1 auto; border-bottom: 1.5px dotted rgba(201,162,39,.35); margin: 0 8px 3px; min-width: 16px; }
+    .menu-price { font-weight: 600; color: #4A3525; white-space: nowrap; flex-shrink: 0; }
+
+    /* ─── Tým — karty zaměstnanců ─── */
+    .tym-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    @media (max-width: 900px) { .tym-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .tym-grid { grid-template-columns: 1fr; } }
+
+    .tym-karta {
+      background: #FDFBF7; border-radius: 12px;
+      box-shadow: 0 2px 16px rgba(74,53,37,.14);
+      overflow: hidden;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .tym-karta:hover { transform: translateY(-4px); box-shadow: 0 10px 32px rgba(74,53,37,.22); }
+    .tym-karta--sef  { outline: 2px solid #C9A227; outline-offset: 0; }
+
+    .tym-foto-wrap  { position: relative; aspect-ratio: 1 / 1; overflow: hidden; background: #EAE0D2; }
+    .tym-foto-fallback {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', Georgia, serif; font-size: 3.5rem; font-weight: 600;
+      color: rgba(74,53,37,.3);
+    }
+    .tym-foto { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+
+    .tym-karta-body  { padding: 1.25rem 1.25rem 1.5rem; }
+    .tym-sef-header  { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; margin-bottom: .5rem; }
+    .tym-jmeno { font-family: 'Playfair Display', Georgia, serif; font-size: 1.2rem; font-weight: 600; color: #1F1B16; }
+    .tym-bio   { font-size: .875rem; line-height: 1.65; color: rgba(31,27,22,.65); margin-top: .5rem; }
+    .tym-sef-badge {
+      font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      background: rgba(201,162,39,.18); color: #4A3525;
+      border: 1px solid rgba(201,162,39,.55); border-radius: 999px; padding: .15rem .65rem;
+    }
+  </style>
+</head>
+
+<body class="font-body bg-white text-cafe-charcoal antialiased">
+
+  <!-- ============================================================ NAVBAR ============================================================ -->
+  <header class="fixed top-0 inset-x-0 z-50 shadow-lg" style="background-color: #4A3525;">
+    <nav class="max-w-6xl mx-auto flex items-center justify-between px-4 sm:px-6 py-3.5" aria-label="Hlavní navigace">
+
+      <a href="#hero" class="flex items-center gap-2.5" aria-label="Holiday CAFE — zpět na začátek">
+        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white shadow overflow-hidden">
+          <img src="assets/images/Holiday%20cafe%20logo.png" alt="Logo Holiday CAFE" class="w-8 h-8 object-contain">
+        </span>
+        <span class="font-display text-xl font-semibold text-white tracking-wide">Holiday CAFE</span>
+      </a>
+
+      <!-- Desktop -->
+      <ul class="hidden lg:flex items-center gap-6 text-sm font-medium" style="color: #EAE0D2;">
+        <li><a href="#o-nas"           class="nav-link hover:text-cafe-cream transition-colors">O nás</a></li>
+        <li><a href="#menu"            class="nav-link hover:text-cafe-cream transition-colors">Menu</a></li>
+        <li><a href="#nase-parta"      class="nav-link hover:text-cafe-cream transition-colors">Naše parta</a></li>
+        <li><a href="#galerie"         class="nav-link hover:text-cafe-cream transition-colors">Galerie</a></li>
+        <li><a href="#kde-nas-najdete" class="nav-link hover:text-cafe-cream transition-colors">Kde nás najdete</a></li>
+        <li>
+          <a href="#dorty" class="inline-flex items-center gap-1.5 bg-cafe-gold text-cafe-brown-deep px-4 py-2 rounded-full font-semibold text-sm hover:brightness-110 transition-all">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8"/><path d="M2 21h20"/><path d="M7 8v3M12 8v3M17 8v3"/><path d="M7 4h.01M12 4h.01M17 4h.01"/></svg>
+            Objednat dort
+          </a>
+        </li>
+      </ul>
+
+      <!-- Hamburger -->
+      <button id="menu-toggle" type="button"
+        class="hamburger lg:hidden flex flex-col justify-center items-center gap-1.5 w-10 h-10 rounded-lg text-cafe-cream hover:bg-cafe-brown-light transition-colors"
+        aria-controls="mobile-menu" aria-expanded="false" aria-label="Otevřít menu">
+        <span class="block w-5 h-0.5 bg-current rounded"></span>
+        <span class="block w-5 h-0.5 bg-current rounded"></span>
+        <span class="block w-5 h-0.5 bg-current rounded"></span>
+      </button>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="lg:hidden bg-cafe-brown-deep border-t border-cafe-cream/10">
+      <ul class="flex flex-col px-5 py-2 text-cafe-sand font-medium divide-y divide-cafe-brown-light/30">
+        <li><a href="#o-nas"           class="mobile-link block py-3.5 hover:text-cafe-gold transition-colors">O nás</a></li>
+        <li><a href="#menu"            class="mobile-link block py-3.5 hover:text-cafe-gold transition-colors">Menu</a></li>
+        <li><a href="#nase-parta"      class="mobile-link block py-3.5 hover:text-cafe-gold transition-colors">Naše parta</a></li>
+        <li><a href="#galerie"         class="mobile-link block py-3.5 hover:text-cafe-gold transition-colors">Galerie</a></li>
+        <li><a href="#kde-nas-najdete" class="mobile-link block py-3.5 hover:text-cafe-gold transition-colors">Kde nás najdete</a></li>
+        <li>
+          <a href="#dorty" class="mobile-link flex items-center gap-2 py-3.5 text-cafe-gold font-semibold">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8"/><path d="M2 21h20"/><path d="M7 8v3M12 8v3M17 8v3"/><path d="M7 4h.01M12 4h.01M17 4h.01"/></svg>
+            Objednat dort
+          </a>
+        </li>
+      </ul>
+      <div class="px-5 py-4 border-t border-cafe-cream/10 flex flex-col gap-2">
+        <a href="tel:+420733666194" class="flex items-center gap-2.5 text-sm text-cafe-cream/65 hover:text-cafe-gold transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 14h-.08z"/></svg>
+          +420 733 666 194
+        </a>
+        <div class="flex gap-4 mt-1">
+          <a href="https://www.facebook.com/profile.php?id=100046929535066&locale=cs_CZ" target="_blank" rel="noopener noreferrer" class="text-sm text-cafe-cream/65 hover:text-cafe-gold transition-colors">Facebook</a>
+          <a href="https://www.instagram.com/holidaycafe_bousov/" target="_blank" rel="noopener noreferrer" class="text-sm text-cafe-cream/65 hover:text-cafe-gold transition-colors">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============================================================ HERO ============================================================ -->
+    <section id="hero" class="relative min-h-screen flex flex-col overflow-hidden">
+      <img src="assets/images/Holiday%20caf%C3%A9%20-%20hero%20sekce%20.jpeg"
+           alt="Kavárna Holiday Café — interiér na náměstí v Dolním Bousově"
+           class="absolute inset-0 w-full h-full object-cover object-center">
+      <div class="absolute inset-0 bg-gradient-to-b from-cafe-brown/80 via-cafe-brown/60 to-cafe-brown/85"></div>
+
+      <div class="relative flex-1 flex flex-col items-center justify-center text-center px-4 sm:px-8 pt-28 pb-12">
+        <div class="max-w-3xl w-full">
+
+          <div class="reveal flex items-center justify-center gap-3 mb-8">
+            <div class="w-10 h-px bg-cafe-gold/50"></div>
+            <span class="text-cafe-cream/60 text-xs font-medium tracking-[0.35em] uppercase">Kavárna · Cukrárna · Dolní Bousov</span>
+            <div class="w-10 h-px bg-cafe-gold/50"></div>
+          </div>
+
+          <div class="reveal flex flex-col items-center gap-5 mb-8">
+            <span class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white/95 shadow-2xl">
+              <img src="assets/images/Holiday%20cafe%20logo.png" alt="Logo Holiday CAFE" class="w-14 h-14 object-contain">
+            </span>
+            <h1 class="font-display font-bold text-cafe-cream leading-none tracking-tight text-6xl sm:text-7xl lg:text-8xl">
+              Holiday CAFE
+            </h1>
+          </div>
+
+          <p class="reveal font-display italic text-2xl sm:text-3xl lg:text-4xl text-cafe-cream mb-6 leading-snug">
+            Zastavte se na chvíli —<br>
+            <span class="text-cafe-gold not-italic font-semibold">jako na dovolené.</span>
+          </p>
+
+          <p class="reveal text-cafe-cream/80 text-base sm:text-lg max-w-xl mx-auto mb-10 leading-relaxed">
+            Malá kavárna na rohu náměstí v Dolním Bousově. Tady se čas zpomalí — na dobrou kávu, domácí dort nebo jen tak.
+          </p>
+
+          <div class="reveal flex flex-col sm:flex-row items-center justify-center gap-3">
+            <a href="#menu" class="inline-flex items-center gap-2 bg-cafe-gold text-cafe-brown-deep px-7 py-3.5 rounded-full font-semibold shadow-xl hover:brightness-110 hover:-translate-y-0.5 transition-all text-sm">
+              Podívejte se na menu
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14m0 0l-6-6m6 6l6-6"/></svg>
+            </a>
+            <a href="#kde-nas-najdete" class="inline-flex items-center gap-2 border border-cafe-cream/50 text-cafe-cream px-7 py-3.5 rounded-full font-medium hover:bg-cafe-cream hover:text-cafe-brown transition-all text-sm">
+              Jak nás najdete
+            </a>
+          </div>
+
+          <div class="reveal mt-10 flex items-center justify-center gap-2 text-cafe-cream/45 text-sm">
+            <div class="flex gap-0.5" role="img" aria-label="5 hvězdiček">
+              <svg class="w-4 h-4 text-cafe-gold" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L21.5 9.27l-4.75 4.36 1.15 6.87L12 17.27l-5.9 3.23 1.15-6.87L2.5 9.27l6.6-1.01L12 2z"/></svg>
+              <svg class="w-4 h-4 text-cafe-gold" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L21.5 9.27l-4.75 4.36 1.15 6.87L12 17.27l-5.9 3.23 1.15-6.87L2.5 9.27l6.6-1.01L12 2z"/></svg>
+              <svg class="w-4 h-4 text-cafe-gold" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L21.5 9.27l-4.75 4.36 1.15 6.87L12 17.27l-5.9 3.23 1.15-6.87L2.5 9.27l6.6-1.01L12 2z"/></svg>
+              <svg class="w-4 h-4 text-cafe-gold" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L21.5 9.27l-4.75 4.36 1.15 6.87L12 17.27l-5.9 3.23 1.15-6.87L2.5 9.27l6.6-1.01L12 2z"/></svg>
+              <svg class="w-4 h-4 text-cafe-gold" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L21.5 9.27l-4.75 4.36 1.15 6.87L12 17.27l-5.9 3.23 1.15-6.87L2.5 9.27l6.6-1.01L12 2z"/></svg>
+            </div>
+            <span>4,9 / 5 na Firmy.cz</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative pb-8 flex justify-center">
+        <a href="#o-nas" aria-label="Přejít níž" class="animate-bounce text-cafe-cream/30 hover:text-cafe-gold transition-colors">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14m0 0l-6-6m6 6l6-6"/></svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============================================================ O NÁS (hnědá) ============================================================ -->
+    <section id="o-nas" class="bg-cafe-brown text-cafe-cream py-20 sm:py-28">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-stretch">
+
+          <!-- Levý sloupec — text -->
+          <div>
+            <p class="reveal text-xs font-semibold tracking-[0.3em] uppercase text-cafe-gold mb-5">Náš příběh</p>
+            <h2 class="reveal font-display text-4xl sm:text-5xl lg:text-6xl font-semibold leading-tight mb-10">
+              Místo, kde se<br><span class="text-cafe-gold">čas zpomalí.</span>
+            </h2>
+
+            <div class="space-y-6">
+              <p class="reveal text-cafe-cream/90 text-lg leading-relaxed">
+                Kavárnu otevřela <strong class="text-cafe-cream font-semibold">Jarka</strong> — protože chtěla vytvořit místo, kde se <strong class="text-cafe-cream font-semibold">každý cítí vítaný</strong> a kde práce dává smysl. Naši lidé, někteří s handicapem, přicházejí každý den proto, že tu <em class="text-cafe-gold not-italic font-medium">chtějí být</em>. A tu péči v šálku, který vám přinesou, prostě poznáte.
+              </p>
+              <p class="reveal text-cafe-cream/65 leading-relaxed">
+                Z Mladé Boleslavi nebo Jičína do <strong class="text-cafe-cream/85 font-medium">Českého ráje</strong>? Jsme přesně <strong class="text-cafe-cream/85 font-medium">na půl cesty</strong> — na rohu bousovského náměstí, kde se dá chvíli oddechnout. Ať přijdete pěšky, na kole, s kočárkem nebo se psem.
+              </p>
+            </div>
+
+            <!-- Drobné štítky pod textem -->
+            <div class="reveal mt-8 flex flex-wrap gap-3">
+              <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-cafe-cream/10 ring-1 ring-cafe-cream/20 text-cafe-cream/80 text-xs font-medium">🚲 Cyklisté vítáni</span>
+              <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-cafe-cream/10 ring-1 ring-cafe-cream/20 text-cafe-cream/80 text-xs font-medium">🐕 Dog-friendly</span>
+              <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-cafe-cream/10 ring-1 ring-cafe-cream/20 text-cafe-cream/80 text-xs font-medium">👨‍👩‍👧 Rodiny s dětmi</span>
+            </div>
+          </div>
+
+          <!-- Pravý sloupec — fotka kavárny -->
+          <div class="reveal flex">
+            <div class="relative rounded-3xl overflow-hidden shadow-2xl ring-1 ring-cafe-cream/10 w-full min-h-[260px]">
+              <img src="assets/images/holiday-cafe-exterior.png"
+                   alt="Exteriér kavárny Holiday Café na náměstí v Dolním Bousově"
+                   class="absolute inset-0 w-full h-full object-cover object-top">
+              <div class="absolute inset-0 bg-gradient-to-t from-cafe-brown/40 via-transparent to-transparent"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ MENU (bílá) ============================================================ -->
+    <section id="menu" class="bg-white py-20 sm:py-28">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6">
+        <div class="text-center max-w-xl mx-auto">
+          <p class="reveal text-xs font-semibold tracking-[0.3em] uppercase text-cafe-brown/55 mb-5">Menu</p>
+          <h2 class="reveal font-display text-4xl sm:text-5xl font-semibold text-cafe-charcoal">Co u nás ochutnáte</h2>
+          <p class="reveal mt-4 text-cafe-charcoal/55 leading-relaxed">Nic složitého — jen věci, které děláme rádi a pořádně.</p>
+          <!-- Klíčové info o kávě a s sebou -->
+          <div class="reveal mt-6 flex flex-wrap justify-center gap-3">
+            <span class="inline-flex items-center gap-2 bg-cafe-brown text-cafe-cream text-sm font-semibold px-4 py-2 rounded-full shadow-md">
+              ☕ Výběrová káva z pražírny <strong class="text-cafe-gold ml-1">Nordbeans Liberec</strong> — espresso i filtr
+            </span>
+            <span class="inline-flex items-center gap-2 border-2 border-cafe-brown text-cafe-charcoal text-sm font-semibold px-4 py-2 rounded-full">
+              🥡 Vše si můžete vzít také s sebou
+            </span>
+          </div>
+        </div>
+
+        <!-- Záložky -->
+        <div class="reveal mt-12 overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0 pb-2">
+          <div id="menu-tabs" class="flex gap-2 w-max sm:w-auto sm:flex-wrap" role="tablist" aria-label="Kategorie menu">
+            <button id="tab-btn-kava"           class="menu-tab active shrink-0 px-4 py-2 rounded-full text-sm font-semibold border-2 border-cafe-sand text-cafe-charcoal/65 transition-all" data-tab="kava"           role="tab" aria-selected="true"  aria-controls="tab-kava">☕ Káva</button>
+            <button id="tab-btn-napoje-horke"   class="menu-tab        shrink-0 px-4 py-2 rounded-full text-sm font-semibold border-2 border-cafe-sand text-cafe-charcoal/65 hover:border-cafe-brown/40 transition-all" data-tab="napoje-horke"   role="tab" aria-selected="false" aria-controls="tab-napoje-horke">🍵 Horké nápoje</button>
+            <button id="tab-btn-napoje-studene" class="menu-tab        shrink-0 px-4 py-2 rounded-full text-sm font-semibold border-2 border-cafe-sand text-cafe-charcoal/65 hover:border-cafe-brown/40 transition-all" data-tab="napoje-studene" role="tab" aria-selected="false" aria-controls="tab-napoje-studene">🧋 Studené nápoje</button>
+            <button id="tab-btn-koktejly"       class="menu-tab        shrink-0 px-4 py-2 rounded-full text-sm font-semibold border-2 border-cafe-sand text-cafe-charcoal/65 hover:border-cafe-brown/40 transition-all" data-tab="koktejly"       role="tab" aria-selected="false" aria-controls="tab-koktejly">🍹 Koktejly</button>
+            <button id="tab-btn-alko"           class="menu-tab        shrink-0 px-4 py-2 rounded-full text-sm font-semibold border-2 border-cafe-sand text-cafe-charcoal/65 hover:border-cafe-brown/40 transition-all" data-tab="alko"           role="tab" aria-selected="false" aria-controls="tab-alko">🍺 Alkohol</button>
+            <button id="tab-btn-zmrzlina"       class="menu-tab        shrink-0 px-4 py-2 rounded-full text-sm font-semibold border-2 border-cafe-sand text-cafe-charcoal/65 hover:border-cafe-brown/40 transition-all" data-tab="zmrzlina"       role="tab" aria-selected="false" aria-controls="tab-zmrzlina">🍦 Zmrzlina & Poháry</button>
+            <button id="tab-btn-vafle"          class="menu-tab        shrink-0 px-4 py-2 rounded-full text-sm font-semibold border-2 border-cafe-sand text-cafe-charcoal/65 hover:border-cafe-brown/40 transition-all" data-tab="vafle"          role="tab" aria-selected="false" aria-controls="tab-vafle">🧇 Bubble Waffle</button>
+            <button id="tab-btn-jidlo"          class="menu-tab        shrink-0 px-4 py-2 rounded-full text-sm font-semibold border-2 border-cafe-sand text-cafe-charcoal/65 hover:border-cafe-brown/40 transition-all" data-tab="jidlo"          role="tab" aria-selected="false" aria-controls="tab-jidlo">🥪 Slané specialitky</button>
+          </div>
+        </div>
+
+        <div class="mt-8">
+
+          <!-- ☕ KÁVA -->
+          <div id="tab-kava" class="menu-panel" role="tabpanel" aria-labelledby="tab-btn-kava" tabindex="0">
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="bg-cafe-cream rounded-2xl p-6">
+                <p class="text-xs font-semibold tracking-[0.2em] uppercase text-cafe-brown/50 mb-4">Espresso</p>
+                <ul class="space-y-3">
+                  <li class="menu-item"><span class="menu-name">Espresso</span><span class="menu-dots"></span><span class="menu-price">59 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Espresso dvojité</span><span class="menu-dots"></span><span class="menu-price">69 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Lungo</span><span class="menu-dots"></span><span class="menu-price">59 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Ristretto</span><span class="menu-dots"></span><span class="menu-price">59 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Americano</span><span class="menu-dots"></span><span class="menu-price">65 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Espresso tonic</span><span class="menu-dots"></span><span class="menu-price">85 Kč</span></li>
+                </ul>
+              </div>
+              <div class="bg-cafe-cream rounded-2xl p-6">
+                <p class="text-xs font-semibold tracking-[0.2em] uppercase text-cafe-brown/50 mb-4">Mléčná káva</p>
+                <ul class="space-y-3">
+                  <li class="menu-item"><span class="menu-name">Cappuccino</span><span class="menu-dots"></span><span class="menu-price">69 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Latte macchiato</span><span class="menu-dots"></span><span class="menu-price">79 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Flat white</span><span class="menu-dots"></span><span class="menu-price">75 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Café latté</span><span class="menu-dots"></span><span class="menu-price">79 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Vídeňská káva</span><span class="menu-dots"></span><span class="menu-price">79 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Ledová káva</span><span class="menu-dots"></span><span class="menu-price">89 Kč</span></li>
+                </ul>
+              </div>
+              <div class="bg-cafe-cream rounded-2xl p-6 md:col-span-2">
+                <p class="text-xs font-semibold tracking-[0.2em] uppercase text-cafe-brown/50 mb-4">Filtrovaná káva — Nordbeans Liberec</p>
+                <ul class="space-y-3 md:columns-2">
+                  <li class="menu-item break-inside-avoid"><span class="menu-name">Chemex filtr (velký)</span><span class="menu-dots"></span><span class="menu-price">89 Kč</span></li>
+                  <li class="menu-item break-inside-avoid"><span class="menu-name">Překapávaná káva (malá)</span><span class="menu-dots"></span><span class="menu-price">69 Kč</span></li>
+                  <li class="menu-item break-inside-avoid"><span class="menu-name">Cold brew</span><span class="menu-dots"></span><span class="menu-price">89 Kč</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- 🍵 HORKÉ NÁPOJE -->
+          <div id="tab-napoje-horke" class="menu-panel hidden" role="tabpanel" aria-labelledby="tab-btn-napoje-horke" tabindex="0">
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="bg-cafe-cream rounded-2xl p-6">
+                <p class="text-xs font-semibold tracking-[0.2em] uppercase text-cafe-brown/50 mb-4">Čaje</p>
+                <ul class="space-y-3">
+                  <li class="menu-item"><span class="menu-name">Sáčkové čaje <span class="text-xs text-cafe-charcoal/40">(černý, zelený, ovocný, bylinný)</span></span><span class="menu-dots"></span><span class="menu-price">59 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Výběrové sypané čaje</span><span class="menu-dots"></span><span class="menu-price">69 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Čerstvý zázvorový / mátový čaj</span><span class="menu-dots"></span><span class="menu-price">69 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Domácí pečený čaj</span><span class="menu-dots"></span><span class="menu-price">69 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Indický kořeněný čaj <span class="text-xs text-cafe-charcoal/40">(mléko, med, koření)</span></span><span class="menu-dots"></span><span class="menu-price">69 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Chai latté</span><span class="menu-dots"></span><span class="menu-price">75 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Matcha latte</span><span class="menu-dots"></span><span class="menu-price">85 Kč</span></li>
+                </ul>
+              </div>
+              <div class="bg-cafe-cream rounded-2xl p-6">
+                <p class="text-xs font-semibold tracking-[0.2em] uppercase text-cafe-brown/50 mb-4">Čokoláda & horké nápoje</p>
+                <ul class="space-y-3">
+                  <li class="menu-item"><span class="menu-name">Horká čokoláda</span><span class="menu-dots"></span><span class="menu-price">59 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Horká čokoláda se šlehačkou</span><span class="menu-dots"></span><span class="menu-price">69 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Horká čokoláda hustá krémová <span class="text-xs text-cafe-charcoal/40">(se šlehačkou)</span></span><span class="menu-dots"></span><span class="menu-price">69 / 79 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Horký ovocný nápoj</span><span class="menu-dots"></span><span class="menu-price">59 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Grog / Grog z griotky</span><span class="menu-dots"></span><span class="menu-price">59 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Svařené víno</span><span class="menu-dots"></span><span class="menu-price">59 Kč</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- 🧋 STUDENÉ NÁPOJE -->
+          <div id="tab-napoje-studene" class="menu-panel hidden" role="tabpanel" aria-labelledby="tab-btn-napoje-studene" tabindex="0">
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="bg-cafe-cream rounded-2xl p-6">
+                <p class="text-xs font-semibold tracking-[0.2em] uppercase text-cafe-brown/50 mb-4">Domácí nápoje</p>
+                <ul class="space-y-3">
+                  <li class="menu-item"><span class="menu-name">Domácí limonáda 0,4 l <span class="text-xs text-cafe-charcoal/40">(jahoda, lesní plody, malina, mango, zázvor, borůvka, citrón)</span></span><span class="menu-dots"></span><span class="menu-price">69 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Domácí matcha limonáda</span><span class="menu-dots"></span><span class="menu-price">89 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Bubble tea čaje</span><span class="menu-dots"></span><span class="menu-price">99 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Bubble tea mléčné nápoje</span><span class="menu-dots"></span><span class="menu-price">99 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Holiday Gummy <span class="text-xs text-cafe-charcoal/40">(bubble želé, zmrzlina, mléko, šlehačka, sirup)</span></span><span class="menu-dots"></span><span class="menu-price">109 Kč</span></li>
+                </ul>
+              </div>
+              <div class="bg-cafe-cream rounded-2xl p-6">
+                <p class="text-xs font-semibold tracking-[0.2em] uppercase text-cafe-brown/50 mb-4">Smoothies & mléčné nápoje</p>
+                <ul class="space-y-3">
+                  <li class="menu-item"><span class="menu-name">Exotic <span class="text-xs text-cafe-charcoal/40">(pomeranč, banán, jablko, led)</span></span><span class="menu-dots"></span><span class="menu-price">98 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Forest <span class="text-xs text-cafe-charcoal/40">(lesní plody, jablko, banán, led)</span></span><span class="menu-dots"></span><span class="menu-price">98 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Zahrádka <span class="text-xs text-cafe-charcoal/40">(jahody, maliny, jablko, med, led)</span></span><span class="menu-dots"></span><span class="menu-price">98 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Mléčný zmrzlinový koktejl</span><span class="menu-dots"></span><span class="menu-price">89 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Mléčný ovocný koktejl</span><span class="menu-dots"></span><span class="menu-price">79 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Mléčný ovocný koktejl se zmrzlinou</span><span class="menu-dots"></span><span class="menu-price">99 Kč</span></li>
+                </ul>
+              </div>
+              <div class="bg-cafe-cream rounded-2xl p-6 md:col-span-2">
+                <p class="text-xs font-semibold tracking-[0.2em] uppercase text-cafe-brown/50 mb-4">Ostatní nealko nápoje</p>
+                <ul class="space-y-3 md:columns-2">
+                  <li class="menu-item break-inside-avoid"><span class="menu-name">Coca-Cola, Royal Crown Cola, Vinea, Kofola, zázvorové pivo, ledový čaj</span><span class="menu-dots"></span><span class="menu-price">45 Kč</span></li>
+                  <li class="menu-item break-inside-avoid"><span class="menu-name">Jupík / Jupík ovocík</span><span class="menu-dots"></span><span class="menu-price">35 Kč</span></li>
+                  <li class="menu-item break-inside-avoid"><span class="menu-name">Džus ve skle 0,2 l <span class="text-xs text-cafe-charcoal/40">(jablko, jahoda, pomeranč)</span></span><span class="menu-dots"></span><span class="menu-price">45 Kč</span></li>
+                  <li class="menu-item break-inside-avoid"><span class="menu-name">Capri Sonne</span><span class="menu-dots"></span><span class="menu-price">20 Kč</span></li>
+                  <li class="menu-item break-inside-avoid"><span class="menu-name">Rajec perlivý / neperlivý / ochucený 0,75 l</span><span class="menu-dots"></span><span class="menu-price">45 Kč</span></li>
+                  <li class="menu-item break-inside-avoid"><span class="menu-name">Nealko pivo Birell klasik / ochucený</span><span class="menu-dots"></span><span class="menu-price">45 Kč</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- 🍹 KOKTEJLY -->
+          <div id="tab-koktejly" class="menu-panel hidden" role="tabpanel" aria-labelledby="tab-btn-koktejly" tabindex="0">
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="bg-cafe-cream rounded-2xl p-6">
+                <p class="text-xs font-semibold tracking-[0.2em] uppercase text-cafe-brown/50 mb-4">Bezalkoholické koktejly</p>
+                <ul class="space-y-3">
+                  <li class="menu-item"><span class="menu-name">Virgin Colada <span class="text-xs text-cafe-charcoal/40">(kokosový monin, smetana, ananas. džus)</span></span><span class="menu-dots"></span><span class="menu-price">89 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Virgin Mojito <span class="text-xs text-cafe-charcoal/40">(limeta, třtinový cukr, máta, soda)</span></span><span class="menu-dots"></span><span class="menu-price">79 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Virgin Mojito Jahoda</span><span class="menu-dots"></span><span class="menu-price">89 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Virgin Hugo <span class="text-xs text-cafe-charcoal/40">(bezový sirup, soda, limeta, máta)</span></span><span class="menu-dots"></span><span class="menu-price">79 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Virgin Granny <span class="text-xs text-cafe-charcoal/40">(grenadínový monin, citrón, máta)</span></span><span class="menu-dots"></span><span class="menu-price">79 Kč</span></li>
+                </ul>
+              </div>
+              <div class="bg-cafe-cream rounded-2xl p-6">
+                <p class="text-xs font-semibold tracking-[0.2em] uppercase text-cafe-brown/50 mb-4">Alkoholické koktejly</p>
+                <ul class="space-y-3">
+                  <li class="menu-item"><span class="menu-name">Mish-Mash <span class="text-xs text-cafe-charcoal/40">(pomeranč. limonáda, červené víno)</span></span><span class="menu-dots"></span><span class="menu-price">79 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Beton <span class="text-xs text-cafe-charcoal/40">(Becherovka, tonic)</span></span><span class="menu-dots"></span><span class="menu-price">99 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Aperolspritz <span class="text-xs text-cafe-charcoal/40">(aperol, prosecco, soda, pomeranč)</span></span><span class="menu-dots"></span><span class="menu-price">109 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Hugo <span class="text-xs text-cafe-charcoal/40">(prosecco, bezový sirup, soda, limetka, máta)</span></span><span class="menu-dots"></span><span class="menu-price">99 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Mojito <span class="text-xs text-cafe-charcoal/40">(limeta, třtinový cukr, máta, bílý rum, soda)</span></span><span class="menu-dots"></span><span class="menu-price">99 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Mojito Jahoda</span><span class="menu-dots"></span><span class="menu-price">109 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Piňacolada</span><span class="menu-dots"></span><span class="menu-price">109 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Cuba Libre</span><span class="menu-dots"></span><span class="menu-price">99 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Tequila Sunrise</span><span class="menu-dots"></span><span class="menu-price">109 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Sex on the Beach</span><span class="menu-dots"></span><span class="menu-price">109 Kč</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- 🍺 ALKOHOL -->
+          <div id="tab-alko" class="menu-panel hidden" role="tabpanel" aria-labelledby="tab-btn-alko" tabindex="0">
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="bg-cafe-cream rounded-2xl p-6">
+                <p class="text-xs font-semibold tracking-[0.2em] uppercase text-cafe-brown/50 mb-4">Pivo & víno</p>
+                <ul class="space-y-3">
+                  <li class="menu-item"><span class="menu-name">Pivo Pilsner Urquell lahvové</span><span class="menu-dots"></span><span class="menu-price">49 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Pivo IPA</span><span class="menu-dots"></span><span class="menu-price">dle nabídky</span></li>
+                  <li class="menu-item"><span class="menu-name">Frisco</span><span class="menu-dots"></span><span class="menu-price">55 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Víno rozlévané 0,1 l <span class="text-xs text-cafe-charcoal/40">(bílé, červené, růžové)</span></span><span class="menu-dots"></span><span class="menu-price">35 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Víno lahvové</span><span class="menu-dots"></span><span class="menu-price">dle nabídky</span></li>
+                  <li class="menu-item"><span class="menu-name">Bohemia sekt / Prosecco 0,7 l</span><span class="menu-dots"></span><span class="menu-price">249 Kč</span></li>
+                </ul>
+              </div>
+              <div class="bg-cafe-cream rounded-2xl p-6">
+                <p class="text-xs font-semibold tracking-[0.2em] uppercase text-cafe-brown/50 mb-4">Likéry & destiláty (4 cl)</p>
+                <ul class="space-y-3">
+                  <li class="menu-item"><span class="menu-name">Klasické <span class="text-xs text-cafe-charcoal/40">(Vodka, Tuzemák, Fernet, Stock, Becherovka, Griotka, Slivovice, Vaječný likér…)</span></span><span class="menu-dots"></span><span class="menu-price">40 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Výběrové <span class="text-xs text-cafe-charcoal/40">(Tullamore Dew, Ballantine's, Tequila, Tatratea, Sambuca, Pistaciový likér…)</span></span><span class="menu-dots"></span><span class="menu-price">60 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Prémiové <span class="text-xs text-cafe-charcoal/40">(Jack Daniel's, Jim Beam, Legendario, Malibu)</span></span><span class="menu-dots"></span><span class="menu-price">80 Kč</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- 🍦 ZMRZLINA & POHÁRY -->
+          <div id="tab-zmrzlina" class="menu-panel hidden" role="tabpanel" aria-labelledby="tab-btn-zmrzlina" tabindex="0">
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="bg-cafe-cream rounded-2xl p-6">
+                <p class="text-xs font-semibold tracking-[0.2em] uppercase text-cafe-brown/50 mb-4">Dětské poháry</p>
+                <ul class="space-y-3">
+                  <li class="menu-item"><span class="menu-name">Dětský pohár <span class="text-xs text-cafe-charcoal/40">(čokoláda, karamel)</span></span><span class="menu-dots"></span><span class="menu-price">75 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Dětský pohár <span class="text-xs text-cafe-charcoal/40">(horké maliny, Oreo, Lotus)</span></span><span class="menu-dots"></span><span class="menu-price">85 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Horké jahody se šlehačkou</span><span class="menu-dots"></span><span class="menu-price">75 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Horké maliny se šlehačkou</span><span class="menu-dots"></span><span class="menu-price">75 Kč</span></li>
+                </ul>
+              </div>
+              <div class="bg-cafe-cream rounded-2xl p-6">
+                <p class="text-xs font-semibold tracking-[0.2em] uppercase text-cafe-brown/50 mb-4">Velké poháry</p>
+                <ul class="space-y-3">
+                  <li class="menu-item"><span class="menu-name">Čokoládový <span class="text-xs text-cafe-charcoal/40">(vanilka/čoko, čoko poleva, šlehačka, hoblinky)</span></span><span class="menu-dots"></span><span class="menu-price">105 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Karamelový <span class="text-xs text-cafe-charcoal/40">(vanilka, karamel, šlehačka, griliáš)</span></span><span class="menu-dots"></span><span class="menu-price">105 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Horké maliny <span class="text-xs text-cafe-charcoal/40">(vanilka, horké maliny, šlehačka)</span></span><span class="menu-dots"></span><span class="menu-price">128 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Mon Cheri <span class="text-xs text-cafe-charcoal/40">(čokoládová, griotka, višně, šlehačka)</span></span><span class="menu-dots"></span><span class="menu-price">128 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">OREO <span class="text-xs text-cafe-charcoal/40">(stracciatella, čoko, šlehačka, oreo sušenky)</span></span><span class="menu-dots"></span><span class="menu-price">128 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">LOTUS <span class="text-xs text-cafe-charcoal/40">(vanilka, lotus, šlehačka, lotus sušenky)</span></span><span class="menu-dots"></span><span class="menu-price">128 Kč</span></li>
+                  <li class="menu-item"><span class="menu-name">Vaječný likér <span class="text-xs text-cafe-charcoal/40">(zmrzlina, vaječný koňak, šlehačka)</span></span><span class="menu-dots"></span><span class="menu-price">128 Kč</span></li>
+                </ul>
+              </div>
+              <div class="bg-cafe-cream rounded-2xl p-6 md:col-span-2">
+                <p class="text-xs font-semibold tracking-[0.2em] uppercase text-cafe-brown/50 mb-4">Točená zmrzlina & přídavky</p>
+                <ul class="space-y-3 md:columns-2">
+                  <li class="menu-item break-inside-avoid"><span class="menu-name">Kopeček zmrzliny <span class="text-xs text-cafe-charcoal/40">(dle výběru)</span></span><span class="menu-dots"></span><span class="menu-price">30 Kč</span></li>
+                  <li class="menu-item break-inside-avoid"><span class="menu-name">Točená zmrzlina malá / střední</span><span class="menu-dots"></span><span class="menu-price">35 / 70 Kč</span></li>
+                  <li class="menu-item break-inside-avoid"><span class="menu-name">Přídavky <span class="text-xs text-cafe-charcoal/40">(banán, griliáš, Oreo, Lotus, Margot, Griotka, Vaječný likér…)</span></span><span class="menu-dots"></span><span class="menu-price">20 Kč</span></li>
+                  <li class="menu-item break-inside-avoid"><span class="menu-name">Horké ovoce <span class="text-xs text-cafe-charcoal/40">(maliny, lesní plody, mango, borůvky)</span></span><span class="menu-dots"></span><span class="menu-price">30 Kč</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- 🧇 BUBBLE WAFFLE -->
+          <div id="tab-vafle" class="menu-panel hidden" role="tabpanel" aria-labelledby="tab-btn-vafle" tabindex="0">
+            <div class="bg-cafe-cream rounded-2xl p-6">
+              <ul class="space-y-3">
+                <li class="menu-item"><span class="menu-name">Basic <span class="text-xs text-cafe-charcoal/40">(moučkový cukr, čokoládový / karamelový topink)</span></span><span class="menu-dots"></span><span class="menu-price">78 Kč</span></li>
+                <li class="menu-item"><span class="menu-name">Se šlehačkou</span><span class="menu-dots"></span><span class="menu-price">88 Kč</span></li>
+                <li class="menu-item"><span class="menu-name">Banánek <span class="text-xs text-cafe-charcoal/40">(banán, šlehačka, čokoládová poleva)</span></span><span class="menu-dots"></span><span class="menu-price">108 Kč</span></li>
+                <li class="menu-item"><span class="menu-name">Nutella <span class="text-xs text-cafe-charcoal/40">(Nutella, šlehačka, posyp dle výběru)</span></span><span class="menu-dots"></span><span class="menu-price">108 Kč</span></li>
+                <li class="menu-item"><span class="menu-name">Žhavá láska <span class="text-xs text-cafe-charcoal/40">(horké maliny, šlehačka, poleva)</span></span><span class="menu-dots"></span><span class="menu-price">108 Kč</span></li>
+                <li class="menu-item pt-3 border-t border-cafe-sand mt-2"><span class="menu-name font-semibold">Splněný sen — sestav si vlastní vafli</span><span class="menu-dots"></span><span class="menu-price">od 78 Kč</span></li>
+              </ul>
+              <p class="mt-4 text-sm text-cafe-charcoal/45">Přídavky 20 Kč / kus &nbsp;·&nbsp; Zmrzlina se šlehačkou a Legendario 30 Kč</p>
+            </div>
+          </div>
+
+          <!-- 🥪 SLANÉ SPECIALITKY -->
+          <div id="tab-jidlo" class="menu-panel hidden" role="tabpanel" aria-labelledby="tab-btn-jidlo" tabindex="0">
+            <div class="bg-cafe-cream rounded-2xl p-6">
+              <p class="text-xs font-semibold tracking-[0.2em] uppercase text-cafe-brown/50 mb-4">Slané horké specialitky</p>
+              <ul class="space-y-3">
+                <li class="menu-item"><span class="menu-name">Zapečený toast <span class="text-xs text-cafe-charcoal/40">(šunka, sýr, hořčice, kečup)</span></span><span class="menu-dots"></span><span class="menu-price">59 Kč</span></li>
+                <li class="menu-item"><span class="menu-name">Zapečený toast <span class="text-xs text-cafe-charcoal/40">(grilovaný hermelín, brusinky)</span></span><span class="menu-dots"></span><span class="menu-price">69 Kč</span></li>
+                <li class="menu-item"><span class="menu-name">Grilovaný hermelín <span class="text-xs text-cafe-charcoal/40">(opečený toustový chléb)</span></span><span class="menu-dots"></span><span class="menu-price">79 Kč</span></li>
+                <li class="menu-item pt-3 border-t border-cafe-sand mt-2"><span class="menu-name">Tortilla s trhaným masem <span class="text-xs text-cafe-charcoal/40">(dresink, listový salát, rajče)</span></span><span class="menu-dots"></span><span class="menu-price">159 Kč</span></li>
+                <li class="menu-item"><span class="menu-name">Tortilla s kuřecími stripsy <span class="text-xs text-cafe-charcoal/40">(dresink, zelenina)</span></span><span class="menu-dots"></span><span class="menu-price">159 Kč</span></li>
+                <li class="menu-item"><span class="menu-name">Tortilla vege <span class="text-xs text-cafe-charcoal/40">(vejce, sýr, zelenina, dresink)</span></span><span class="menu-dots"></span><span class="menu-price">159 Kč</span></li>
+              </ul>
+            </div>
+            <p class="mt-5 text-sm text-cafe-charcoal/45 text-center italic">Vše si u nás můžete vzít také s sebou.</p>
+          </div>
+
+        </div>
+
+        <p class="reveal mt-10 text-center text-sm font-medium text-cafe-brown flex items-center justify-center gap-2">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2l1.5 4.5h9L18 2M7.5 6.5L9 22h6l1.5-15.5"/></svg>
+          Vše si u nás lze vzít také s sebou.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================================================ NAŠE PARTA (hnědá) ============================================================ -->
+    <section id="nase-parta" class="bg-cafe-brown text-cafe-cream py-20 sm:py-28">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6">
+
+        <div class="max-w-2xl">
+          <p class="reveal text-xs font-semibold tracking-[0.3em] uppercase text-cafe-gold mb-5">Naše parta</p>
+          <h2 class="reveal font-display text-4xl sm:text-5xl font-semibold leading-tight">Náš tým</h2>
+          <p class="reveal mt-4 text-cafe-cream/70 leading-relaxed max-w-lg">Lidé, kteří tvoří Holiday CAFE</p>
+        </div>
+
+        <div class="mt-14 tym-grid">
+
+          <!-- Tomáš -->
+          <article class="reveal tym-karta" style="transition-delay:0s">
+            <div class="tym-foto-wrap">
+              <div class="tym-foto-fallback" aria-hidden="true">T</div>
+              <img src="assets/zamestnanci/tomas.jpeg" alt="Fotografie Tomáše" class="tym-foto" onerror="this.style.opacity='0'">
+            </div>
+            <div class="tym-karta-body">
+              <h3 class="tym-jmeno">Tomáš</h3>
+              <p class="tym-bio">Tomáš je bousovský rodák, který vloni oslavil významné kulaté životní jubileum, hádejte jaké? 🙂 Je to muž s velkým M, který dokáže jako jeden z mála nezištně ocenit krásu ženy. Miluje psy a také plavání. V létě pravidelně navštěvuje místní koupaliště. Má rád lidi, hudbu, tanec a společnost, proto nechybí na žádné týmové akci. Jeho úsměv je nakažlivý. Zamilujete si ho pro jeho bezprostřednost.</p>
+            </div>
+          </article>
+
+          <!-- Standa -->
+          <article class="reveal tym-karta" style="transition-delay:.05s">
+            <div class="tym-foto-wrap">
+              <div class="tym-foto-fallback" aria-hidden="true">S</div>
+              <img src="assets/zamestnanci/standa.jpeg" alt="Fotografie Standy" class="tym-foto" onerror="this.style.opacity='0'">
+            </div>
+            <div class="tym-karta-body">
+              <h3 class="tym-jmeno">Standa</h3>
+              <p class="tym-bio">Standa je pohodář každým coulem. Jeho největším koníčkem je zahradničení, při kterém si rád vychutná jako správný čech i dobré pívečko. Miluje zvířata, pro každého psího návštěvníka naší kavárny, v případě že páníček dovolí, má v kapse schovaný nějaký pamlsek. Doma má svoji kočičku, o kterou se rád a vzorně stará. Na požádání Vám rád uplete ponožky, což je další jeho radostí. 🙂</p>
+            </div>
+          </article>
+
+          <!-- Ríša -->
+          <article class="reveal tym-karta" style="transition-delay:.10s">
+            <div class="tym-foto-wrap">
+              <div class="tym-foto-fallback" aria-hidden="true">R</div>
+              <img src="assets/zamestnanci/risa.jpeg" alt="Fotografie Ríši" class="tym-foto" onerror="this.style.opacity='0'">
+            </div>
+            <div class="tym-karta-body">
+              <h3 class="tym-jmeno">Ríša</h3>
+              <p class="tym-bio">Ríša se nám spolu se Standou stará v kavárně o úklid, pořádek, zahrádku a o zalévání květin. Je to chytrý mladý muž, který miluje hry na PC a zahradničení. Je to vyučený zahradník. Miluje čokoládu, kofolu a vše sladké, proto rád pomáhá při pečení v kuchyni. Budeme doufat, že na Vás něco zbyde. 😁</p>
+            </div>
+          </article>
+
+          <!-- Petra -->
+          <article class="reveal tym-karta" style="transition-delay:.15s">
+            <div class="tym-foto-wrap">
+              <div class="tym-foto-fallback" aria-hidden="true">P</div>
+              <img src="assets/zamestnanci/petra.jpeg" alt="Fotografie Petry" class="tym-foto" onerror="this.style.opacity='0'">
+            </div>
+            <div class="tym-karta-body">
+              <h3 class="tym-jmeno">Petra</h3>
+              <p class="tym-bio">Petra je náš týmový pesimista i přesto, že ji úsměv tak moc sluší. Do práce pravidelně přichází pozdě a místo omluvy sprdne šéfovou, protože nejlepší obrana je útok. 😁 Nikdy si nezapomene koupit svoji sedmičku a pročíst nejnovější drby ze světa šoubyznysu. Je jednou z největších a nejvěrnějších fanynek Leoše Mareše, jeho Monča by si měla dát pozor na konkurenci. 🙂</p>
+            </div>
+          </article>
+
+          <!-- Evička -->
+          <article class="reveal tym-karta" style="transition-delay:.20s">
+            <div class="tym-foto-wrap">
+              <div class="tym-foto-fallback" aria-hidden="true">E</div>
+              <img src="assets/zamestnanci/evicka.jpeg" alt="Fotografie Evičky" class="tym-foto" onerror="this.style.opacity='0'">
+            </div>
+            <div class="tym-karta-body">
+              <h3 class="tym-jmeno">Evička</h3>
+              <p class="tym-bio">Evička je jednoznačně největším flegmatikem našeho týmu. Ať už dělá cokoliv, dělá to s obrovskou péčí a láskou, což jen málokdo dokáže při čekání patřičně ocenit. Mladistvý vzhled si udržuje pozitivní energií a neustálým úsměvem na rtech. Nejraději jezdí se svoji nejlepší kamarádkou do obchodního centra courat po obchodech. Doma ráda skáče na trampolíně a v létě se koupe v bazénu.</p>
+            </div>
+          </article>
+
+          <!-- Vita -->
+          <article class="reveal tym-karta" style="transition-delay:.25s">
+            <div class="tym-foto-wrap">
+              <div class="tym-foto-fallback" aria-hidden="true">V</div>
+              <img src="assets/zamestnanci/vita.jpeg" alt="Fotografie Vity" class="tym-foto" onerror="this.style.opacity='0'">
+            </div>
+            <div class="tym-karta-body">
+              <h3 class="tym-jmeno">Vita</h3>
+              <p class="tym-bio">Vita je spolu se šéfovou hlavní asistentkou pro ostatní zaměstnance. Její prací je nejen brát objednávky a přijímat platby, ale hlavně pomáhat ostatním zaměstnancům s jejich úkoly, zadávat jim práci a kontrolovat její provedení. Je to pracovitá a svědomitá vedoucí, co nezkazí žádnou legraci. Je pyšnou maminkou dvou nezletilých výrostků. Do Čech přišla za prací asi před 20 lety, a jelikož se tu krátce na to seznámila s manželem, v ČR už spolu zůstali. Vzorně se stará o rodinu, což ji zabere většinu volného času. Má ráda květiny, pořádek a ráda si posedí s přáteli.</p>
+            </div>
+          </article>
+
+          <!-- Šéfová Jája -->
+          <article class="reveal tym-karta tym-karta--sef" style="transition-delay:.30s">
+            <div class="tym-foto-wrap">
+              <div class="tym-foto-fallback" aria-hidden="true">J</div>
+              <img src="assets/zamestnanci/jaja.jpeg" alt="Fotografie Jáji — šéfové kavárny" class="tym-foto" onerror="this.style.opacity='0'">
+            </div>
+            <div class="tym-karta-body">
+              <div class="tym-sef-header">
+                <h3 class="tym-jmeno">Jája</h3>
+                <span class="tym-sef-badge">Šéfová</span>
+              </div>
+              <p class="tym-bio">Jája již od dětství brigádničila u tatínka v masně, kde nejraději trávila čas za pultem a snila o tom, že jednou bude sama podnikat. Při studiu na SŠ chodila jako dobrovolnice na LDN a do ústavu pro hendikepované, aby byla, jak říká, na tom světě trochu užitečná. Po dokončení VŠ studia nastoupila do kanceláře, kde si brzy uvědomila, že kancelářská práce není její cestou, protože tam ji pocit naplnění chyběl. Její sen o podnikání ji neopustil — chtěla ho spojit s něčím, čím by mohla pomoci dalším lidem, a s prací s hendikepovanými, která ji naplňovala. A proto, díky její další lásce ke kávě, vzniklo Holiday CAFE.</p>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ GALERIE (bílá) ============================================================ -->
+    <section id="galerie" class="bg-white py-20 sm:py-28">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6">
+        <div class="text-center max-w-xl mx-auto">
+          <p class="reveal text-xs font-semibold tracking-[0.3em] uppercase text-cafe-brown/55 mb-5">Galerie</p>
+          <h2 class="reveal font-display text-4xl sm:text-5xl font-semibold text-cafe-charcoal">U nás v kavárně</h2>
+          <p class="reveal mt-4 text-cafe-charcoal/50 leading-relaxed">
+            Fotky přibydou co nejdřív — sledujte nás na
+            <a href="https://www.instagram.com/holidaycafe_bousov/" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 hover:text-cafe-brown transition-colors">Instagramu</a>
+            a <a href="https://www.facebook.com/profile.php?id=100046929535066&locale=cs_CZ" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 hover:text-cafe-brown transition-colors">Facebooku</a>.
+          </p>
+        </div>
+
+        <div class="mt-12">
+          <div class="reveal w-full aspect-video rounded-2xl bg-cafe-sand/50 flex flex-col items-center justify-center gap-4 text-cafe-brown/30 mb-4"
+               role="img" aria-label="Interiér kavárny Holiday CAFE — foto brzy doplníme">
+            <svg class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2v11z"/><circle cx="12" cy="13" r="4"/></svg>
+            <p class="text-sm tracking-widest uppercase font-medium">Interiér kavárny</p>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            <div class="reveal aspect-square rounded-xl bg-cafe-sand/70 flex flex-col items-center justify-center gap-2 text-cafe-brown/30" role="img" aria-label="Výběrová káva — foto brzy doplníme"><svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg><p class="text-xs tracking-widest uppercase font-medium">Káva</p></div>
+            <div class="reveal aspect-square rounded-xl bg-cafe-sand/50 flex flex-col items-center justify-center gap-2 text-cafe-brown/30" style="transition-delay:.06s" role="img" aria-label="Venkovní zahrádka — foto brzy doplníme"><svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/></svg><p class="text-xs tracking-widest uppercase font-medium">Zahrádka</p></div>
+            <div class="reveal aspect-square rounded-xl bg-cafe-sand flex flex-col items-center justify-center gap-2 text-cafe-brown/30" style="transition-delay:.12s" role="img" aria-label="Domácí dorty — foto brzy doplníme"><svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8"/><path d="M2 21h20"/><path d="M7 8v3M12 8v3M17 8v3"/><path d="M7 4h.01M12 4h.01M17 4h.01"/></svg><p class="text-xs tracking-widest uppercase font-medium">Dorty</p></div>
+            <div class="reveal aspect-square rounded-xl bg-cafe-sand/60 flex flex-col items-center justify-center gap-2 text-cafe-brown/30" style="transition-delay:.18s" role="img" aria-label="Zmrzlinové poháry — foto brzy doplníme"><svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2a4 4 0 0 0-4 4c0 1.5.8 2.8 2 3.5V22h4V9.5c1.2-.7 2-2 2-3.5a4 4 0 0 0-4-4z"/></svg><p class="text-xs tracking-widest uppercase font-medium">Zmrzlina</p></div>
+            <div class="reveal aspect-square rounded-xl bg-cafe-sand/80 flex flex-col items-center justify-center gap-2 text-cafe-brown/30" style="transition-delay:.24s" role="img" aria-label="Bubble waffle — foto brzy doplníme"><svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor"/><circle cx="15.5" cy="8.5" r="1.5" fill="currentColor"/><circle cx="8.5" cy="15.5" r="1.5" fill="currentColor"/><circle cx="15.5" cy="15.5" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg><p class="text-xs tracking-widest uppercase font-medium">Bubble Waffle</p></div>
+            <div class="reveal aspect-square rounded-xl bg-cafe-sand/40 flex flex-col items-center justify-center gap-2 text-cafe-brown/30" style="transition-delay:.30s" role="img" aria-label="Naše parta — foto brzy doplníme"><svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><p class="text-xs tracking-widest uppercase font-medium">Naše parta</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ KDE NÁS NAJDETE (hnědá) ============================================================ -->
+    <section id="kde-nas-najdete" class="bg-cafe-brown text-cafe-cream py-20 sm:py-28">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6">
+
+        <div class="max-w-2xl">
+          <p class="reveal text-xs font-semibold tracking-[0.3em] uppercase text-cafe-gold mb-5">Kde nás najdete</p>
+          <h2 class="reveal font-display text-4xl sm:text-5xl font-semibold leading-tight">Na rohu náměstí,<br>u brány do Českého ráje</h2>
+        </div>
+
+        <div class="mt-14 grid lg:grid-cols-2 gap-10 lg:gap-14 items-start">
+
+          <div id="kontakt" class="space-y-7">
+
+            <div class="reveal flex gap-4 items-start">
+              <span class="inline-flex shrink-0 items-center justify-center w-11 h-11 rounded-xl bg-cafe-cream text-cafe-brown">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </span>
+              <div>
+                <h3 class="font-semibold text-cafe-cream">Adresa</h3>
+                <p class="mt-1 text-sm text-cafe-cream/70 leading-relaxed">nám. T. G. Masaryka 270, 294 04 Dolní Bousov<br><span class="text-cafe-cream/45 text-xs">Rohový dům přímo na náměstí — kousek od Mladé Boleslavi, Sobotky a Kněžmostu.</span></p>
+              </div>
+            </div>
+
+            <div class="reveal flex gap-4 items-start">
+              <span class="inline-flex shrink-0 items-center justify-center w-11 h-11 rounded-xl bg-cafe-cream text-cafe-brown">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+              </span>
+              <div>
+                <h3 class="font-semibold text-cafe-cream">Otevírací doba</h3>
+                <dl class="mt-1 text-sm text-cafe-cream/70 space-y-1">
+                  <div class="flex gap-4"><dt class="font-medium w-32">Úterý–Sobota</dt><dd>11:30 – 17:30</dd></div>
+                  <div class="flex gap-4 text-cafe-cream/40"><dt class="font-medium w-32">Pondělí a Neděle</dt><dd>zavřeno</dd></div>
+                </dl>
+              </div>
+            </div>
+
+            <div class="reveal flex gap-4 items-start">
+              <span class="inline-flex shrink-0 items-center justify-center w-11 h-11 rounded-xl bg-cafe-cream text-cafe-brown">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.22a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </span>
+              <div>
+                <h3 class="font-semibold text-cafe-cream">Kontakt</h3>
+                <ul class="mt-1 space-y-1 text-sm text-cafe-cream/70">
+                  <li><a href="tel:+420733666194" class="hover:text-cafe-gold transition-colors">+420 733 666 194</a></li>
+                  <li><a href="mailto:jaroslavajakubcova@email.cz" class="hover:text-cafe-gold transition-colors break-all">jaroslavajakubcova@email.cz</a></li>
+                  <li>
+                    <a href="https://www.facebook.com/profile.php?id=100046929535066&locale=cs_CZ" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 hover:text-cafe-gold transition-colors">
+                      <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.8-4.7 4.54-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.5c-1.5 0-1.96.93-1.96 1.89v2.26h3.32l-.53 3.5h-2.8V24C19.62 23.1 24 18.1 24 12.07z"/></svg>
+                      Holiday CAFE na Facebooku
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="reveal bg-cafe-brown-light/50 ring-1 ring-cafe-cream/10 rounded-2xl p-5 flex items-center gap-4">
+              <span class="font-display text-3xl font-bold text-cafe-gold shrink-0">4,9<span class="text-base text-cafe-cream/30">/5</span></span>
+              <div>
+                <div class="flex gap-0.5 text-cafe-gold" role="img" aria-label="4.9 z 5 hvězdiček">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L21.5 9.27l-4.75 4.36 1.15 6.87L12 17.27l-5.9 3.23 1.15-6.87L2.5 9.27l6.6-1.01L12 2z"/></svg>
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L21.5 9.27l-4.75 4.36 1.15 6.87L12 17.27l-5.9 3.23 1.15-6.87L2.5 9.27l6.6-1.01L12 2z"/></svg>
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L21.5 9.27l-4.75 4.36 1.15 6.87L12 17.27l-5.9 3.23 1.15-6.87L2.5 9.27l6.6-1.01L12 2z"/></svg>
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L21.5 9.27l-4.75 4.36 1.15 6.87L12 17.27l-5.9 3.23 1.15-6.87L2.5 9.27l6.6-1.01L12 2z"/></svg>
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L21.5 9.27l-4.75 4.36 1.15 6.87L12 17.27l-5.9 3.23 1.15-6.87L2.5 9.27l6.6-1.01L12 2z"/></svg>
+                </div>
+                <p class="mt-1 text-xs text-cafe-cream/55 leading-snug">na Firmy.cz — chválíte kávu, útulnou atmosféru a ochotnou obsluhu.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="reveal lg:sticky lg:top-24">
+            <div class="rounded-2xl overflow-hidden shadow-xl ring-1 ring-cafe-cream/10">
+              <iframe
+                src="https://maps.google.com/maps?q=n%C3%A1m.%20T.%20G.%20Masaryka%20270%2C%20294%2004%20Doln%C3%AD%20Bousov&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Mapa — Holiday CAFE, Dolní Bousov">
+              </iframe>
+            </div>
+            <p class="mt-3 text-sm text-cafe-cream/45 text-center">Parkování přímo na náměstí &nbsp;·&nbsp; stojany na kola u zahrádky · Wi-Fi zdarma · platba kartou i QR</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ DORTY NA OBJEDNÁNÍ (bílá) ============================================================ -->
+    <section id="dorty" class="bg-white py-20 sm:py-28">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6">
+
+        <div class="text-center max-w-xl mx-auto">
+          <p class="reveal text-xs font-semibold tracking-[0.3em] uppercase text-cafe-brown/55 mb-5">Na objednání</p>
+          <h2 class="reveal font-display text-4xl sm:text-5xl font-semibold text-cafe-charcoal">Dorty a zákusky<br>na míru</h2>
+          <p class="reveal mt-4 text-cafe-charcoal/55 leading-relaxed">
+            Slavíte narozeniny, svatbu nebo chcete jen tak někomu udělat radost? Upečeme rukama, z poctivých surovin — přesně podle toho, co máte rádi.
+          </p>
+        </div>
+
+        <div class="mt-14 grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+
+          <div class="space-y-6">
+
+            <div class="reveal flex gap-4 items-start">
+              <span class="inline-flex shrink-0 items-center justify-center w-11 h-11 rounded-xl bg-cafe-sand text-cafe-brown">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8"/><path d="M2 21h20"/><path d="M7 8v3M12 8v3M17 8v3"/><path d="M7 4h.01M12 4h.01M17 4h.01"/></svg>
+              </span>
+              <div>
+                <h3 class="font-display text-lg font-semibold text-cafe-charcoal">Dorty na oslavu</h3>
+                <p class="mt-1 text-sm text-cafe-charcoal/60 leading-relaxed">Narozeniny, svatba, křtiny nebo sešlost s přáteli. Řekněte nám příležitost, počet lidí a oblíbenou příchuť — zbytek vymyslíme za vás.</p>
+              </div>
+            </div>
+
+            <div class="reveal flex gap-4 items-start">
+              <span class="inline-flex shrink-0 items-center justify-center w-11 h-11 rounded-xl bg-cafe-sand text-cafe-brown">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 11h12l-1.4 9H7.4z"/><path d="M5 11a7 7 0 0 1 14 0"/><path d="M12 4V2"/></svg>
+              </span>
+              <div>
+                <h3 class="font-display text-lg font-semibold text-cafe-charcoal">Zákusky a sladké tabule</h3>
+                <p class="mt-1 text-sm text-cafe-charcoal/60 leading-relaxed">Řezy, mini dezerty a drobné zákusky hezky naskládané na tác — ať máte na oslavě sladké hned hotové.</p>
+              </div>
+            </div>
+
+            <div class="reveal flex gap-4 items-start">
+              <span class="inline-flex shrink-0 items-center justify-center w-11 h-11 rounded-xl bg-cafe-sand text-cafe-brown">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              </span>
+              <div>
+                <h3 class="font-display text-lg font-semibold text-cafe-charcoal">Domluva je jednoduchá</h3>
+                <p class="mt-1 text-sm text-cafe-charcoal/60 leading-relaxed">Stačí se ozvat s předstihem — telefonem, e-mailem nebo na Facebooku. U větších dortů nám dejte vědět raději s týdenním předstihem.</p>
+              </div>
+            </div>
+
+            <div class="reveal flex flex-col sm:flex-row gap-3 pt-2">
+              <a href="tel:+420733666194"
+                 class="inline-flex items-center justify-center gap-2 bg-cafe-brown text-cafe-cream px-6 py-3 rounded-full font-semibold text-sm hover:bg-cafe-brown-light transition-colors shadow-md">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.22a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                Zavolejte nám
+              </a>
+              <a href="mailto:jaroslavajakubcova@email.cz?subject=Objedn%C3%A1vka%20dortu"
+                 class="inline-flex items-center justify-center gap-2 border-2 border-cafe-brown text-cafe-brown px-6 py-3 rounded-full font-semibold text-sm hover:bg-cafe-brown hover:text-cafe-cream transition-colors">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
+                Napište nám
+              </a>
+            </div>
+          </div>
+
+          <figure class="reveal">
+            <div class="w-full aspect-[4/3] rounded-2xl bg-cafe-sand/45 flex flex-col items-center justify-center gap-4 text-cafe-brown/30"
+                 role="img" aria-label="Dort na objednání od Holiday CAFE — foto brzy doplníme">
+              <svg class="w-14 h-14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8"/><path d="M2 21h20"/><path d="M7 8v3M12 8v3M17 8v3"/><path d="M7 4h.01M12 4h.01M17 4h.01"/></svg>
+              <p class="text-sm font-medium tracking-widest uppercase">Foto dortů brzy doplníme</p>
+            </div>
+            <figcaption class="mt-3 text-sm text-cafe-charcoal/40 text-center italic">Každý dort pečeme na míru — fotky přidáme co nejdřív.</figcaption>
+          </figure>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================ FOOTER ============================================================ -->
+  <footer class="bg-cafe-brown-deep text-cafe-cream/60 py-10">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 items-start">
+
+        <div class="flex flex-col items-center sm:items-start text-center sm:text-left">
+          <span class="inline-flex items-center justify-center w-11 h-11 mb-3 rounded-full bg-white overflow-hidden">
+            <img src="assets/images/Holiday%20cafe%20logo.png" alt="Logo Holiday CAFE" class="w-9 h-9 object-contain">
+          </span>
+          <p class="font-display text-lg font-semibold text-cafe-cream">Holiday <span class="text-cafe-gold">CAFE</span></p>
+          <p class="mt-2 text-xs">© 2026 Holiday CAFE. Všechna práva vyhrazena.</p>
+          <p class="text-xs">IČO: 08064237</p>
+          <p class="text-xs">Odpovědná osoba: Jaroslava Jakubcová</p>
+          <p class="mt-1 text-xs leading-snug">nám. T. G. Masaryka 270, 294 04 Dolní Bousov</p>
+          <a href="tel:+420733666194" class="mt-1 text-xs hover:text-cafe-gold transition-colors">+420 733 666 194</a>
+        </div>
+
+        <nav aria-label="Patička — navigace" class="flex flex-col items-center sm:items-start">
+          <p class="text-xs uppercase tracking-widest text-cafe-cream/30 mb-3">Navigace</p>
+          <ul class="flex flex-col items-center sm:items-start gap-2 text-sm">
+            <li><a href="#o-nas"           class="hover:text-cafe-gold transition-colors">O nás</a></li>
+            <li><a href="#menu"            class="hover:text-cafe-gold transition-colors">Menu</a></li>
+            <li><a href="#nase-parta"      class="hover:text-cafe-gold transition-colors">Naše parta</a></li>
+            <li><a href="#galerie"         class="hover:text-cafe-gold transition-colors">Galerie</a></li>
+            <li><a href="#dorty"           class="hover:text-cafe-gold transition-colors">Dorty na objednání</a></li>
+            <li><a href="#kontakt"         class="hover:text-cafe-gold transition-colors">Kontakt</a></li>
+          </ul>
+        </nav>
+
+        <div class="flex flex-col items-center sm:items-end gap-4">
+          <p class="text-xs uppercase tracking-widest text-cafe-cream/30">Sledujte nás</p>
+          <div class="flex gap-3">
+            <a href="https://www.facebook.com/profile.php?id=100046929535066&locale=cs_CZ" target="_blank" rel="noopener noreferrer"
+               class="inline-flex items-center justify-center w-9 h-9 rounded-full border border-cafe-cream/20 hover:bg-cafe-cream hover:text-cafe-brown transition-all"
+               aria-label="Holiday CAFE na Facebooku">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987H7.898v-2.89h2.54V9.845c0-2.507 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/holidaycafe_bousov/" target="_blank" rel="noopener noreferrer"
+               class="inline-flex items-center justify-center w-9 h-9 rounded-full border border-cafe-cream/20 hover:bg-cafe-cream hover:text-cafe-brown transition-all"
+               aria-label="Holiday CAFE na Instagramu">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </a>
+          </div>
+          <a href="#hero" class="inline-flex items-center gap-2 text-xs border border-cafe-cream/20 rounded-full px-4 py-2 hover:bg-cafe-cream hover:text-cafe-brown transition-all" aria-label="Zpět na začátek stránky">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5m0 0l-6 6m6-6l6 6"/></svg>
+            Zpět nahoru
+          </a>
+        </div>
+      </div>
+
+      <div class="mt-8 pt-5 border-t border-cafe-cream/10 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-cafe-cream/30">
+        <p class="italic">Zastavte se na chvíli. Jako na dovolené.</p>
+        <p>Vyrobeno s péčí od <a href="https://www.vizeon.cz" target="_blank" rel="noopener noreferrer" class="hover:text-cafe-gold transition-colors underline underline-offset-2">vizeon.cz</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================ VANILLA JS ============================================================ -->
+  <script>
+    (function () {
+      'use strict';
+
+      /* 1. Hamburger menu */
+      const toggle     = document.getElementById('menu-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+
+      function setMenu(open) {
+        toggle.classList.toggle('open', open);
+        mobileMenu.classList.toggle('open', open);
+        toggle.setAttribute('aria-expanded', String(open));
+        toggle.setAttribute('aria-label', open ? 'Zavřít menu' : 'Otevřít menu');
+      }
+
+      toggle.addEventListener('click', function () { setMenu(!mobileMenu.classList.contains('open')); });
+      mobileMenu.querySelectorAll('.mobile-link').forEach(function (link) {
+        link.addEventListener('click', function () { setMenu(false); });
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('open')) setMenu(false);
+      });
+
+      /* 2. Smooth scroll s offsetem */
+      const header = document.querySelector('header');
+      document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+        anchor.addEventListener('click', function (e) {
+          const target = document.querySelector(anchor.getAttribute('href'));
+          if (!target) return;
+          e.preventDefault();
+          const top = target.getBoundingClientRect().top + window.scrollY - header.offsetHeight - 8;
+          window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
+          history.replaceState(null, '', anchor.getAttribute('href'));
+        });
+      });
+
+      /* 3. ScrollSpy */
+      const navLinks   = Array.from(document.querySelectorAll('.nav-link'));
+      const spyTargets = navLinks
+        .map(function (link) { return document.querySelector(link.getAttribute('href')); })
+        .filter(Boolean);
+
+      function updateActiveLink() {
+        const scrollPos = window.scrollY + header.offsetHeight + 80;
+        let current = null;
+        spyTargets.forEach(function (section) {
+          if (section.offsetTop <= scrollPos) current = section;
+        });
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 4) {
+          current = spyTargets[spyTargets.length - 1];
+        }
+        navLinks.forEach(function (link) {
+          link.classList.toggle('active', current !== null && link.getAttribute('href') === '#' + current.id);
+        });
+      }
+
+      let spyTick = false;
+      window.addEventListener('scroll', function () {
+        if (spyTick) return;
+        spyTick = true;
+        window.requestAnimationFrame(function () { updateActiveLink(); spyTick = false; });
+      }, { passive: true });
+      updateActiveLink();
+
+      /* 4. Reveal on scroll */
+      const revealEls = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+          });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        revealEls.forEach(function (el) { observer.observe(el); });
+      } else {
+        revealEls.forEach(function (el) { el.classList.add('visible'); });
+      }
+
+      /* 5. Menu záložky */
+      const tabs   = document.querySelectorAll('.menu-tab');
+      const panels = document.querySelectorAll('.menu-panel');
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          const target = tab.getAttribute('data-tab');
+          tabs.forEach(function (t) {
+            const isActive = t.getAttribute('data-tab') === target;
+            t.classList.toggle('active', isActive);
+            t.setAttribute('aria-selected', String(isActive));
+          });
+          panels.forEach(function (panel) {
+            panel.classList.toggle('hidden', panel.id !== 'tab-' + target);
+          });
+        });
+      });
+
+    })();
+  </script>
+</body>
+</html>
