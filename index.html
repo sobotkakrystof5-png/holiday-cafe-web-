@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Holiday Café Dolní Bousov | Kavárna, cukrárna a zmrzlina</title>
+  <title>Holiday Café Dolní Bousov | Chráněná kavárna a zmrzlina</title>
   <link rel="icon" type="image/png" href="assets/images/Holiday%20cafe%20logo.png">
-  <meta name="description" content="Malá kavárna a cukrárna na náměstí v Dolním Bousově. Výběrová káva, domácí zmrzlina, bubble waffle a dorty na objednávku. Na půl cesty do Českého ráje.">
-  <meta property="og:title" content="Holiday Café | Kavárna a cukrárna, Dolní Bousov">
+  <meta name="description" content="Malá chráněná kavárna na náměstí v Dolním Bousově. Výběrová káva, domácí zmrzlina, bubble waffle a dorty na objednávku. Na půl cesty do Českého ráje.">
+  <meta property="og:title" content="Holiday Café | Chráněná kavárna, Dolní Bousov">
   <meta property="og:description" content="Výběrová káva Nordbeans, domácí zmrzlina, bubble waffle a dorty na objednávku. Malá přestávka od všeho — jako na dovolené.">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="cs_CZ">
@@ -34,10 +34,10 @@
     "geo": { "@type": "GeoCoordinates", "latitude": 50.4384835, "longitude": 15.1284849 },
     "openingHoursSpecification": [{
       "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Tuesday","Wednesday","Thursday","Friday","Saturday"],
+      "dayOfWeek": ["Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
       "opens": "11:30", "closes": "17:30"
     }],
-    "servesCuisine": ["Kavárna","Cukrárna","Zmrzlina"],
+    "servesCuisine": ["Kavárna","Zmrzlina"],
     "priceRange": "€",
     "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "bestRating": "5", "worstRating": "1" }
   }
@@ -127,8 +127,6 @@
       transition: transform .2s ease, box-shadow .2s ease;
     }
     .tym-karta:hover { transform: translateY(-4px); box-shadow: 0 10px 32px rgba(74,53,37,.22); }
-    .tym-karta--sef  { outline: 2px solid #C9A227; outline-offset: 0; }
-
     .tym-foto-wrap  { position: relative; aspect-ratio: 1 / 1; overflow: hidden; background: #EAE0D2; }
     .tym-foto-fallback {
       position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
@@ -138,14 +136,8 @@
     .tym-foto { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
 
     .tym-karta-body  { padding: 1.25rem 1.25rem 1.5rem; }
-    .tym-sef-header  { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; margin-bottom: .5rem; }
     .tym-jmeno { font-family: 'Playfair Display', Georgia, serif; font-size: 1.2rem; font-weight: 600; color: #1F1B16; }
     .tym-bio   { font-size: .875rem; line-height: 1.65; color: rgba(31,27,22,.65); margin-top: .5rem; }
-    .tym-sef-badge {
-      font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
-      background: rgba(201,162,39,.18); color: #4A3525;
-      border: 1px solid rgba(201,162,39,.55); border-radius: 999px; padding: .15rem .65rem;
-    }
   </style>
 </head>
 
@@ -227,25 +219,28 @@
       <div class="relative flex-1 flex flex-col items-center justify-center text-center px-4 sm:px-8 pt-28 pb-12">
         <div class="max-w-3xl w-full">
 
-          <div class="reveal flex items-center justify-center gap-3 mb-8">
+          <div class="reveal flex items-center justify-center gap-3 mb-7">
             <div class="w-10 h-px bg-cafe-gold/50"></div>
-            <span class="text-cafe-cream/60 text-xs font-medium tracking-[0.35em] uppercase">Kavárna · Cukrárna · Dolní Bousov</span>
+            <span class="text-cafe-cream/60 text-[0.65rem] sm:text-xs font-medium tracking-[0.15em] sm:tracking-[0.35em] uppercase whitespace-nowrap">Chráněná kavárna · Dolní Bousov</span>
             <div class="w-10 h-px bg-cafe-gold/50"></div>
           </div>
 
-          <div class="reveal flex flex-col items-center gap-5 mb-8">
+          <div class="reveal flex flex-col items-center gap-5 mb-7">
             <span class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white/95 shadow-2xl">
               <img src="assets/images/Holiday%20cafe%20logo.png" alt="Logo Holiday CAFE" class="w-14 h-14 object-contain">
             </span>
             <h1 class="font-display text-cafe-cream text-center leading-none">
               <span class="block font-bold tracking-tight text-5xl sm:text-6xl lg:text-7xl">Holiday CAFE</span>
-              <span class="block font-normal tracking-[0.22em] uppercase text-lg sm:text-xl lg:text-2xl text-cafe-cream/80 mt-3">kavárna v Dolním Bousově</span>
+              <span class="block font-normal tracking-[0.2em] uppercase text-[0.7rem] sm:text-xs text-cafe-cream/50 mt-2.5">Chráněná kavárna · Dolní Bousov</span>
             </h1>
           </div>
 
+          <h2 class="reveal font-display italic font-medium text-cafe-cream/95 text-lg sm:text-xl lg:text-2xl max-w-xl mx-auto mb-4 leading-snug text-center">
+            Malá chráněná kavárnička na rohu náměstí v Dolním Bousově, na okraji Českého ráje.
+          </h2>
 
-          <p class="reveal text-cafe-cream/90 text-lg sm:text-xl max-w-2xl mx-auto mb-10 leading-relaxed text-center">
-            Jsme chráněná kavárna na náměstí v Dolním Bousově — místo, kde se čas zpomalí a kde si každou dobrou kávu, domácí dort nebo zmrzlinu připraví parta, která to myslí srdcem.
+          <p class="reveal text-cafe-cream/70 text-sm sm:text-base max-w-xl mx-auto mb-10 leading-relaxed text-center">
+            Výběrová káva a čaje, domácí dezerty, vyhlášená točená zmrzlina a další mňamky — vše s úsměvem a s láskou. Interiér jsme sladili do přímořského stylu, abyste se u nás cítili <em class="text-cafe-gold not-italic font-medium">jako na dovolené</em> a na chvíli zapomněli na všechny starosti.
           </p>
 
           <div class="reveal flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -286,17 +281,17 @@
 
           <!-- Levý sloupec — text -->
           <div>
-            <p class="reveal text-xs font-semibold tracking-[0.3em] uppercase text-cafe-gold mb-5">Náš příběh</p>
-            <h2 class="reveal font-display text-4xl sm:text-5xl lg:text-6xl font-semibold leading-tight mb-10">
-              Víme,<br><span class="text-cafe-gold">proč jsme tady.</span>
-            </h2>
+            <div class="reveal mb-8">
+              <h2 class="font-display text-4xl sm:text-5xl font-semibold leading-tight">O nás</h2>
+              <p class="mt-3 text-cafe-gold font-bold text-xl sm:text-2xl tracking-wide">S láskou k životu bez předsudků</p>
+            </div>
 
             <div class="space-y-6">
               <p class="reveal text-cafe-cream/90 text-lg leading-relaxed">
-                <strong class="text-cafe-cream font-semibold">Jarka</strong> jako studentka dobrovolničila v ústavu pro lidi s handicapem — a věděla, že tahle práce ji naplňuje. Pak přišla změna zákona, která pracovní podmínky pro hendikepované zhoršila. Jarka se rozhodla reagovat po svém: otevřít místo, kde mají <strong class="text-cafe-cream font-semibold">skutečnou práci a skutečný smysl</strong>. Ke kávě měla vždy blízko — a tak vznikl <em class="text-cafe-gold not-italic font-medium">Holiday CAFE</em>.
+                Jsme malá chráněná kavárnička na rohu náměstí malebného městečka Dolního Bousova, na samém okraji <strong class="text-cafe-cream font-semibold">Českého ráje</strong>. Hostům nabízíme výběrovou kávu a čaje nejvyšší kvality, domácí dezerty, vyhlášenou točenou zmrzlinu a další mňamky. Vše připravujeme s úsměvem a s láskou a doufáme, že se k nám přijdete podívat a následně budete rádi vracet.
               </p>
               <p class="reveal text-cafe-cream/65 leading-relaxed">
-                Z Mladé Boleslavi nebo Jičína do <strong class="text-cafe-cream/85 font-medium">Českého ráje</strong>? Jsme přesně <strong class="text-cafe-cream/85 font-medium">na půl cesty</strong> — na rohu bousovského náměstí, kde se dá chvíli oddechnout. Ať přijdete pěšky, na kole, s kočárkem nebo se psem.
+                Interiér jsme pro vás sladili do přímořského stylu, abyste se u nás cítili <em class="text-cafe-gold not-italic font-medium">jako na dovolené</em> a zapomněli tak na všechny starosti.
               </p>
             </div>
 
@@ -329,15 +324,6 @@
           <p class="reveal text-xs font-semibold tracking-[0.3em] uppercase text-cafe-brown/55 mb-5">Menu</p>
           <h2 class="reveal font-display text-4xl sm:text-5xl font-semibold text-cafe-charcoal">Co u nás ochutnáte</h2>
           <p class="reveal mt-4 text-cafe-charcoal/55 leading-relaxed">Nic složitého — jen věci, které děláme rádi a pořádně.</p>
-          <!-- Klíčové info o kávě a s sebou -->
-          <div class="reveal mt-6 flex flex-wrap justify-center gap-3">
-            <span class="inline-flex items-center gap-2 bg-cafe-brown text-cafe-cream text-sm font-semibold px-4 py-2 rounded-full shadow-md">
-              ☕ Výběrová káva z pražírny <strong class="text-cafe-gold ml-1">Nordbeans Liberec</strong> — espresso i filtr
-            </span>
-            <span class="inline-flex items-center gap-2 border-2 border-cafe-brown text-cafe-charcoal text-sm font-semibold px-4 py-2 rounded-full">
-              🥡 Vše si můžete vzít také s sebou
-            </span>
-          </div>
         </div>
 
         <!-- Záložky -->
@@ -596,9 +582,7 @@
       <div class="max-w-5xl mx-auto px-4 sm:px-6">
 
         <div class="max-w-2xl">
-          <p class="reveal text-xs font-semibold tracking-[0.3em] uppercase text-cafe-gold mb-5">Naše parta</p>
-          <h2 class="reveal font-display text-4xl sm:text-5xl font-semibold leading-tight">Náš tým</h2>
-          <p class="reveal mt-4 text-cafe-cream/70 leading-relaxed max-w-lg">Lidé, kteří tvoří Holiday CAFE</p>
+          <h2 class="reveal font-display text-4xl sm:text-5xl font-semibold leading-tight">Naše parta</h2>
         </div>
 
         <div class="mt-14 tym-grid">
@@ -676,16 +660,13 @@
           </article>
 
           <!-- Šéfová Jája -->
-          <article class="reveal tym-karta tym-karta--sef" style="transition-delay:.30s">
+          <article class="reveal tym-karta" style="transition-delay:.30s">
             <div class="tym-foto-wrap">
               <div class="tym-foto-fallback" aria-hidden="true">J</div>
-              <img src="assets/zamestnanci/jaja.jpeg" alt="Fotografie Jáji — šéfové kavárny" class="tym-foto" onerror="this.style.opacity='0'">
+              <img src="assets/zamestnanci/jaja.jpeg" alt="Fotografie Jáji" class="tym-foto" onerror="this.style.opacity='0'">
             </div>
             <div class="tym-karta-body">
-              <div class="tym-sef-header">
-                <h3 class="tym-jmeno">Jája</h3>
-                <span class="tym-sef-badge">Šéfová</span>
-              </div>
+              <h3 class="tym-jmeno">Jája</h3>
               <p class="tym-bio">Jája již od dětství brigádničila u tatínka v masně, kde nejraději trávila čas za pultem a snila o tom, že jednou bude sama podnikat. Při studiu na SŠ chodila jako dobrovolnice na LDN a do ústavu pro hendikepované, aby byla, jak říká, na tom světě trochu užitečná. Po dokončení VŠ studia nastoupila do kanceláře, kde si brzy uvědomila, že kancelářská práce není její cestou, protože tam ji pocit naplnění chyběl. Její sen o podnikání ji neopustil — chtěla ho spojit s něčím, čím by mohla pomoci dalším lidem, a s prací s hendikepovanými, která ji naplňovala. A proto, díky její další lásce ke kávě, vzniklo Holiday CAFE.</p>
             </div>
           </article>
@@ -755,8 +736,8 @@
               <div>
                 <h3 class="font-semibold text-cafe-cream">Otevírací doba</h3>
                 <dl class="mt-1 text-sm text-cafe-cream/70 space-y-1">
-                  <div class="flex gap-4"><dt class="font-medium w-32">Úterý–Sobota</dt><dd>11:30 – 17:30</dd></div>
-                  <div class="flex gap-4 text-cafe-cream/40"><dt class="font-medium w-32">Pondělí a Neděle</dt><dd>zavřeno</dd></div>
+                  <div class="flex gap-4"><dt class="font-medium w-32">Úterý–Neděle</dt><dd>11:30 – 17:30</dd></div>
+                  <div class="flex gap-4 text-cafe-cream/40"><dt class="font-medium w-32">Pondělí</dt><dd>zavřeno</dd></div>
                 </dl>
               </div>
             </div>
@@ -818,7 +799,7 @@
           <p class="reveal text-xs font-semibold tracking-[0.3em] uppercase text-cafe-brown/55 mb-5">Na objednání</p>
           <h2 class="reveal font-display text-4xl sm:text-5xl font-semibold text-cafe-charcoal">Dorty a zákusky<br>na míru</h2>
           <p class="reveal mt-4 text-cafe-charcoal/55 leading-relaxed">
-            Slavíte narozeniny, svatbu nebo chcete jen tak někomu udělat radost? Upečeme rukama, z poctivých surovin — přesně podle toho, co máte rádi.
+            Upečeme rukama, z poctivých surovin — přesně podle toho, co máte rádi. Upečeme s láskou.
           </p>
         </div>
 
@@ -852,7 +833,7 @@
               </span>
               <div>
                 <h3 class="font-display text-lg font-semibold text-cafe-charcoal">Domluva je jednoduchá</h3>
-                <p class="mt-1 text-sm text-cafe-charcoal/60 leading-relaxed">Stačí se ozvat s předstihem — telefonem, e-mailem nebo na Facebooku. U větších dortů nám dejte vědět raději s týdenním předstihem.</p>
+                <p class="mt-1 text-sm text-cafe-charcoal/60 leading-relaxed">Stačí se ozvat s týdenním předstihem — telefonem, e-mailem nebo na Facebooku.</p>
               </div>
             </div>
 
@@ -886,7 +867,7 @@
   </main>
 
   <!-- ============================================================ FOOTER ============================================================ -->
-  <footer class="bg-cafe-brown-deep text-cafe-cream/60 py-10">
+  <footer class="bg-cafe-brown-deep text-white py-10">
     <div class="max-w-5xl mx-auto px-4 sm:px-6">
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 items-start">
 
@@ -903,7 +884,7 @@
         </div>
 
         <nav aria-label="Patička — navigace" class="flex flex-col items-center sm:items-start">
-          <p class="text-xs uppercase tracking-widest text-cafe-cream/30 mb-3">Navigace</p>
+          <p class="text-xs uppercase tracking-widest text-white mb-3">Navigace</p>
           <ul class="flex flex-col items-center sm:items-start gap-2 text-sm">
             <li><a href="#o-nas"           class="hover:text-cafe-gold transition-colors">O nás</a></li>
             <li><a href="#menu"            class="hover:text-cafe-gold transition-colors">Menu</a></li>
@@ -937,7 +918,7 @@
 
       <div class="mt-8 pt-5 border-t border-cafe-cream/10 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-cafe-cream/30">
         <p class="italic">Malá přestávka od všeho — jako na dovolené.</p>
-        <p>Vyrobeno s péčí od <a href="https://www.vizeon.cz" target="_blank" rel="noopener noreferrer" class="hover:text-cafe-gold transition-colors underline underline-offset-2">vizeon.cz</a></p>
+        <p>Vyrobeno <a href="https://www.vizeon.cz" target="_blank" rel="noopener noreferrer" class="hover:text-cafe-gold transition-colors underline underline-offset-2">vizeon.cz</a></p>
       </div>
     </div>
   </footer>
@@ -1026,7 +1007,7 @@
       tabs.forEach(function (tab) {
         tab.addEventListener('click', function () {
           const target = tab.getAttribute('data-tab');
-          tabs.forEach(function (t) {
+        tabs.forEach(function (t) {
             const isActive = t.getAttribute('data-tab') === target;
             t.classList.toggle('active', isActive);
             t.setAttribute('aria-selected', String(isActive));
