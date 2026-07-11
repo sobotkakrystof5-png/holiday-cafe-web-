@@ -138,6 +138,43 @@
     .tym-karta-body  { padding: 1.25rem 1.25rem 1.5rem; }
     .tym-jmeno { font-family: 'Playfair Display', Georgia, serif; font-size: 1.2rem; font-weight: 600; color: #1F1B16; }
     .tym-bio   { font-size: .875rem; line-height: 1.65; color: rgba(31,27,22,.65); margin-top: .5rem; }
+
+    /* ─── Výlety — interaktivní cyklomapa ─── */
+    .mapa-cesta {
+      fill: none; stroke: #C9A227; stroke-width: 3; stroke-linecap: round;
+      stroke-dasharray: 10 9; opacity: .6;
+      animation: mapa-cesta-tok 24s linear infinite;
+    }
+    @keyframes mapa-cesta-tok { to { stroke-dashoffset: -400; } }
+
+    .mapa-bod  { cursor: pointer; outline: none; }
+    .mapa-terc {
+      fill: #FDFBF7; stroke: #C9A227; stroke-width: 2.5;
+      transition: transform .25s ease, fill .25s ease;
+      transform-origin: center; transform-box: fill-box;
+    }
+    .mapa-halo {
+      fill: #C9A227; opacity: 0;
+      transition: opacity .25s ease, transform .25s ease;
+      transform-origin: center; transform-box: fill-box;
+    }
+    .mapa-bod:hover .mapa-terc, .mapa-bod:focus-visible .mapa-terc, .mapa-bod.active .mapa-terc { transform: scale(1.15); }
+    .mapa-bod:hover .mapa-halo, .mapa-bod:focus-visible .mapa-halo, .mapa-bod.active .mapa-halo { opacity: .3; transform: scale(1.3); }
+    .mapa-bod.active .mapa-terc { fill: #C9A227; }
+    .mapa-cislo { font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 15px; fill: #4A3525; pointer-events: none; }
+    .mapa-label { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 15px; fill: #FDFBF7; opacity: .85; pointer-events: none; }
+
+    .vylet-pill {
+      font-size: .75rem; font-weight: 600; letter-spacing: .01em;
+      padding: .5rem .9rem; border-radius: 9999px; cursor: pointer;
+      background: rgba(253,251,247,.07); color: rgba(253,251,247,.65);
+      border: 1px solid rgba(253,251,247,.15);
+      transition: background .2s ease, color .2s ease, border-color .2s ease;
+    }
+    .vylet-pill:hover { border-color: rgba(201,162,39,.5); color: #FDFBF7; }
+    .vylet-pill.active { background: #C9A227; border-color: #C9A227; color: #3A2A1D; }
+
+    @media (prefers-reduced-motion: reduce) { .mapa-cesta { animation: none; } }
   </style>
 </head>
 
@@ -156,11 +193,13 @@
 
       <!-- Desktop -->
       <ul class="hidden lg:flex items-center gap-6 text-sm font-medium" style="color: #EAE0D2;">
-        <li><a href="#o-nas"           class="nav-link hover:text-cafe-cream transition-colors">O nás</a></li>
-        <li><a href="#menu"            class="nav-link hover:text-cafe-cream transition-colors">Menu</a></li>
-        <li><a href="#nase-parta"      class="nav-link hover:text-cafe-cream transition-colors">Naše parta</a></li>
-        <li><a href="#galerie"         class="nav-link hover:text-cafe-cream transition-colors">Galerie</a></li>
         <li><a href="#kde-nas-najdete" class="nav-link hover:text-cafe-cream transition-colors">Kde nás najdete</a></li>
+        <li><a href="#oteviraci-doba"  class="nav-link hover:text-cafe-cream transition-colors">Otevírací doba</a></li>
+        <li><a href="#galerie"         class="nav-link hover:text-cafe-cream transition-colors">Galerie</a></li>
+        <li><a href="#menu"            class="nav-link hover:text-cafe-cream transition-colors">Menu</a></li>
+        <li><a href="#o-nas"           class="nav-link hover:text-cafe-cream transition-colors">O nás</a></li>
+        <li><a href="#nase-parta"      class="nav-link hover:text-cafe-cream transition-colors">Naše parta</a></li>
+        <li><a href="#vylety"          class="nav-link hover:text-cafe-cream transition-colors">Výlety</a></li>
         <li>
           <a href="#dorty" class="inline-flex items-center gap-1.5 bg-cafe-gold text-cafe-brown-deep px-4 py-2 rounded-full font-semibold text-sm hover:brightness-110 transition-all">
             <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8"/><path d="M2 21h20"/><path d="M7 8v3M12 8v3M17 8v3"/><path d="M7 4h.01M12 4h.01M17 4h.01"/></svg>
@@ -182,11 +221,13 @@
     <!-- Mobile menu -->
     <div id="mobile-menu" class="lg:hidden bg-cafe-brown-deep border-t border-cafe-cream/10">
       <ul class="flex flex-col px-5 py-2 text-cafe-sand font-medium divide-y divide-cafe-brown-light/30">
-        <li><a href="#o-nas"           class="mobile-link block py-3.5 hover:text-cafe-gold transition-colors">O nás</a></li>
-        <li><a href="#menu"            class="mobile-link block py-3.5 hover:text-cafe-gold transition-colors">Menu</a></li>
-        <li><a href="#nase-parta"      class="mobile-link block py-3.5 hover:text-cafe-gold transition-colors">Naše parta</a></li>
-        <li><a href="#galerie"         class="mobile-link block py-3.5 hover:text-cafe-gold transition-colors">Galerie</a></li>
         <li><a href="#kde-nas-najdete" class="mobile-link block py-3.5 hover:text-cafe-gold transition-colors">Kde nás najdete</a></li>
+        <li><a href="#oteviraci-doba"  class="mobile-link block py-3.5 hover:text-cafe-gold transition-colors">Otevírací doba</a></li>
+        <li><a href="#galerie"         class="mobile-link block py-3.5 hover:text-cafe-gold transition-colors">Galerie</a></li>
+        <li><a href="#menu"            class="mobile-link block py-3.5 hover:text-cafe-gold transition-colors">Menu</a></li>
+        <li><a href="#o-nas"           class="mobile-link block py-3.5 hover:text-cafe-gold transition-colors">O nás</a></li>
+        <li><a href="#nase-parta"      class="mobile-link block py-3.5 hover:text-cafe-gold transition-colors">Naše parta</a></li>
+        <li><a href="#vylety"          class="mobile-link block py-3.5 hover:text-cafe-gold transition-colors">Výlety</a></li>
         <li>
           <a href="#dorty" class="mobile-link flex items-center gap-2 py-3.5 text-cafe-gold font-semibold">
             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8"/><path d="M2 21h20"/><path d="M7 8v3M12 8v3M17 8v3"/><path d="M7 4h.01M12 4h.01M17 4h.01"/></svg>
@@ -231,7 +272,7 @@
             </span>
             <h1 class="font-display text-cafe-cream text-center leading-none">
               <span class="block font-bold tracking-tight text-5xl sm:text-6xl lg:text-7xl">Holiday CAFE</span>
-              <span class="block font-normal tracking-[0.2em] uppercase text-[0.7rem] sm:text-xs text-cafe-cream/50 mt-2.5">Chráněná kavárna · Dolní Bousov</span>
+              <span class="block font-semibold tracking-[0.2em] uppercase text-sm sm:text-base text-cafe-cream mt-3">Chráněná kavárna · Dolní Bousov</span>
             </h1>
           </div>
 
@@ -267,52 +308,175 @@
       </div>
 
       <div class="relative pb-8 flex justify-center">
-        <a href="#o-nas" aria-label="Přejít níž" class="animate-bounce text-cafe-cream/30 hover:text-cafe-gold transition-colors">
+        <a href="#kde-nas-najdete" aria-label="Přejít níž" class="animate-bounce text-cafe-cream/30 hover:text-cafe-gold transition-colors">
           <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14m0 0l-6-6m6 6l6-6"/></svg>
         </a>
       </div>
     </section>
 
-    <!-- ============================================================ O NÁS (hnědá) ============================================================ -->
-    <section id="o-nas" class="bg-cafe-brown text-cafe-cream py-20 sm:py-28">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <!-- ============================================================ KDE NÁS NAJDETE (hnědá) ============================================================ -->
+    <section id="kde-nas-najdete" class="bg-cafe-brown text-cafe-cream py-20 sm:py-28">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6">
 
-        <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-stretch">
+        <div class="max-w-2xl">
+          <p class="reveal text-xs font-semibold tracking-[0.3em] uppercase text-cafe-gold mb-5">Kde nás najdete</p>
+          <h2 class="reveal font-display text-4xl sm:text-5xl font-semibold leading-tight">Na rohu náměstí,<br>u brány do Českého ráje</h2>
+        </div>
 
-          <!-- Levý sloupec — text -->
-          <div>
-            <div class="reveal mb-8">
-              <h2 class="font-display text-4xl sm:text-5xl font-semibold leading-tight">O nás</h2>
-              <p class="mt-3 text-cafe-gold font-bold text-xl sm:text-2xl tracking-wide">S láskou k životu bez předsudků</p>
+        <div class="mt-14 grid lg:grid-cols-2 gap-10 lg:gap-14 items-start">
+
+          <div class="space-y-7">
+            <div class="reveal flex gap-4 items-start">
+              <span class="inline-flex shrink-0 items-center justify-center w-11 h-11 rounded-xl bg-cafe-cream text-cafe-brown">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </span>
+              <div>
+                <h3 class="font-semibold text-cafe-cream">Adresa</h3>
+                <p class="mt-1 text-sm text-cafe-cream/70 leading-relaxed">nám. T. G. Masaryka 270, 294 04 Dolní Bousov<br><span class="text-cafe-cream/45 text-xs">Rohový dům přímo na náměstí — kousek od Mladé Boleslavi, Sobotky a Kněžmostu.</span></p>
+              </div>
             </div>
 
-            <div class="space-y-6">
-              <p class="reveal text-cafe-cream/90 text-lg leading-relaxed">
-                Jsme malá chráněná kavárnička na rohu náměstí malebného městečka Dolního Bousova, na samém okraji <strong class="text-cafe-cream font-semibold">Českého ráje</strong>. Hostům nabízíme výběrovou kávu a čaje nejvyšší kvality, domácí dezerty, vyhlášenou točenou zmrzlinu a další mňamky. Vše připravujeme s úsměvem a s láskou a doufáme, že se k nám přijdete podívat a následně budete rádi vracet.
-              </p>
-              <p class="reveal text-cafe-cream/65 leading-relaxed">
-                Interiér jsme pro vás sladili do přímořského stylu, abyste se u nás cítili <em class="text-cafe-gold not-italic font-medium">jako na dovolené</em> a zapomněli tak na všechny starosti.
-              </p>
+            <div class="reveal flex gap-4 items-start" style="transition-delay:.06s">
+              <span class="inline-flex shrink-0 items-center justify-center w-11 h-11 rounded-xl bg-cafe-cream text-cafe-brown">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+              </span>
+              <div>
+                <h3 class="font-semibold text-cafe-cream">Parkování a kola</h3>
+                <p class="mt-1 text-sm text-cafe-cream/70 leading-relaxed">Parkování přímo na náměstí. Stojany na kola najdete hned u zahrádky — ideální zastávka na cyklovýletě po Českém ráji.</p>
+              </div>
             </div>
 
-            <!-- Drobné štítky pod textem -->
-            <div class="reveal mt-8 flex flex-wrap gap-3">
+            <div class="reveal flex gap-4 items-start" style="transition-delay:.12s">
+              <span class="inline-flex shrink-0 items-center justify-center w-11 h-11 rounded-xl bg-cafe-cream text-cafe-brown">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+              </span>
+              <div>
+                <h3 class="font-semibold text-cafe-cream">Vybavení</h3>
+                <p class="mt-1 text-sm text-cafe-cream/70 leading-relaxed">Prostorná venkovní zahrádka, Wi-Fi zdarma a platba kartou i QR.</p>
+              </div>
+            </div>
+
+            <div class="reveal flex flex-wrap gap-3 pt-2" style="transition-delay:.18s">
               <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-cafe-cream/10 ring-1 ring-cafe-cream/20 text-cafe-cream/80 text-xs font-medium">🚲 Cyklisté vítáni</span>
               <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-cafe-cream/10 ring-1 ring-cafe-cream/20 text-cafe-cream/80 text-xs font-medium">🐕 Dog-friendly</span>
               <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-cafe-cream/10 ring-1 ring-cafe-cream/20 text-cafe-cream/80 text-xs font-medium">👨‍👩‍👧 Rodiny s dětmi</span>
             </div>
           </div>
 
-          <!-- Pravý sloupec — fotka kavárny -->
-          <div class="reveal flex">
-            <div class="relative rounded-3xl overflow-hidden shadow-2xl ring-1 ring-cafe-cream/10 w-full min-h-[260px]">
-              <img src="assets/images/holiday-cafe-exterior.png"
-                   alt="Exteriér kavárny Holiday Café na náměstí v Dolním Bousově"
-                   class="absolute inset-0 w-full h-full object-cover object-top">
-              <div class="absolute inset-0 bg-gradient-to-t from-cafe-brown/40 via-transparent to-transparent"></div>
+          <div class="reveal lg:sticky lg:top-24">
+            <div class="rounded-2xl overflow-hidden shadow-xl ring-1 ring-cafe-cream/10">
+              <iframe
+                src="https://maps.google.com/maps?q=n%C3%A1m.%20T.%20G.%20Masaryka%20270%2C%20294%2004%20Doln%C3%AD%20Bousov&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Mapa — Holiday CAFE, Dolní Bousov">
+              </iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ OTEVÍRACÍ DOBA & KONTAKT (bílá) ============================================================ -->
+    <section id="oteviraci-doba" class="bg-white py-20 sm:py-28">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6">
+
+        <div class="text-center max-w-xl mx-auto">
+          <p class="reveal text-xs font-semibold tracking-[0.3em] uppercase text-cafe-brown/55 mb-5">Otevírací doba</p>
+          <h2 class="reveal font-display text-4xl sm:text-5xl font-semibold text-cafe-charcoal">Zastavte se,<br>ozvěte se</h2>
+        </div>
+
+        <div class="mt-14 grid sm:grid-cols-2 gap-8">
+
+          <div class="reveal flex gap-4 items-start">
+            <span class="inline-flex shrink-0 items-center justify-center w-11 h-11 rounded-xl bg-cafe-sand text-cafe-brown">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+            </span>
+            <div>
+              <h3 class="font-semibold text-cafe-charcoal">Otevírací doba</h3>
+              <dl class="mt-1 text-sm text-cafe-charcoal/60 space-y-1">
+                <div class="flex gap-4 text-cafe-charcoal/35"><dt class="font-medium w-32">Pondělí</dt><dd>zavřeno</dd></div>
+                <div class="flex gap-4"><dt class="font-medium w-32">Úterý</dt><dd>11:30 – 17:30</dd></div>
+                <div class="flex gap-4"><dt class="font-medium w-32">Středa</dt><dd>11:30 – 17:30</dd></div>
+                <div class="flex gap-4"><dt class="font-medium w-32">Čtvrtek</dt><dd>11:30 – 17:30</dd></div>
+                <div class="flex gap-4"><dt class="font-medium w-32">Pátek</dt><dd>11:30 – 17:30</dd></div>
+                <div class="flex gap-4"><dt class="font-medium w-32">Sobota</dt><dd>11:30 – 17:30</dd></div>
+                <div class="flex gap-4"><dt class="font-medium w-32">Neděle</dt><dd>11:30 – 17:30</dd></div>
+              </dl>
             </div>
           </div>
 
+          <div id="kontakt" class="reveal flex gap-4 items-start">
+            <span class="inline-flex shrink-0 items-center justify-center w-11 h-11 rounded-xl bg-cafe-sand text-cafe-brown">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.22a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </span>
+            <div>
+              <h3 class="font-semibold text-cafe-charcoal">Kontakt</h3>
+              <ul class="mt-1 space-y-1 text-sm text-cafe-charcoal/65">
+                <li><a href="tel:+420733666194" class="hover:text-cafe-brown transition-colors">+420 733 666 194</a></li>
+                <li><a href="mailto:jaroslavajakubcova@email.cz" class="hover:text-cafe-brown transition-colors break-all">jaroslavajakubcova@email.cz</a></li>
+                <li>
+                  <a href="https://www.facebook.com/profile.php?id=100046929535066&locale=cs_CZ" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 hover:text-cafe-brown transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.8-4.7 4.54-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.5c-1.5 0-1.96.93-1.96 1.89v2.26h3.32l-.53 3.5h-2.8V24C19.62 23.1 24 18.1 24 12.07z"/></svg>
+                    Holiday CAFE na Facebooku
+                  </a>
+                </li>
+              </ul>
+              <p class="mt-3 text-xs text-cafe-charcoal/45">Stůl si můžete předem zamluvit telefonicky nebo přes Facebook.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal mt-10 max-w-sm mx-auto bg-cafe-sand/40 ring-1 ring-cafe-brown/10 rounded-2xl p-5 flex items-center gap-4">
+          <span class="font-display text-3xl font-bold text-cafe-gold shrink-0">4,9<span class="text-base text-cafe-charcoal/30">/5</span></span>
+          <div>
+            <div class="flex gap-0.5 text-cafe-gold" role="img" aria-label="4.9 z 5 hvězdiček">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L21.5 9.27l-4.75 4.36 1.15 6.87L12 17.27l-5.9 3.23 1.15-6.87L2.5 9.27l6.6-1.01L12 2z"/></svg>
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L21.5 9.27l-4.75 4.36 1.15 6.87L12 17.27l-5.9 3.23 1.15-6.87L2.5 9.27l6.6-1.01L12 2z"/></svg>
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L21.5 9.27l-4.75 4.36 1.15 6.87L12 17.27l-5.9 3.23 1.15-6.87L2.5 9.27l6.6-1.01L12 2z"/></svg>
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L21.5 9.27l-4.75 4.36 1.15 6.87L12 17.27l-5.9 3.23 1.15-6.87L2.5 9.27l6.6-1.01L12 2z"/></svg>
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L21.5 9.27l-4.75 4.36 1.15 6.87L12 17.27l-5.9 3.23 1.15-6.87L2.5 9.27l6.6-1.01L12 2z"/></svg>
+            </div>
+            <p class="mt-1 text-xs text-cafe-charcoal/55 leading-snug">na Firmy.cz — chválíte kávu, útulnou atmosféru a ochotnou obsluhu.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================ GALERIE (hnědá) ============================================================ -->
+    <section id="galerie" class="bg-cafe-brown text-cafe-cream py-20 sm:py-28">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6">
+        <div class="text-center max-w-xl mx-auto">
+          <p class="reveal text-xs font-semibold tracking-[0.3em] uppercase text-cafe-gold mb-5">Galerie</p>
+          <h2 class="reveal font-display text-4xl sm:text-5xl font-semibold">U nás v kavárně</h2>
+          <p class="reveal mt-4 text-cafe-cream/60 leading-relaxed">
+            Nakoukněte k nám — další fotky najdete na
+            <a href="https://www.instagram.com/holidaycafe_bousov/" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 hover:text-cafe-gold transition-colors">Instagramu</a>
+            a <a href="https://www.facebook.com/profile.php?id=100046929535066&locale=cs_CZ" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 hover:text-cafe-gold transition-colors">Facebooku</a>.
+          </p>
+        </div>
+
+        <div class="mt-12">
+          <div class="reveal aspect-video sm:aspect-[21/9] rounded-2xl overflow-hidden mb-4">
+            <img src="assets/images/galerie/interier.jpg" alt="Interiér kavárny Holiday CAFE — dřevěné lavice, bambusové stěny a obrázky moře" class="w-full h-full object-cover" loading="lazy">
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            <div class="reveal aspect-square rounded-xl overflow-hidden"><img src="assets/images/galerie/kava.jpg" alt="Espresso Nordbeans na dřevěném podnose s logem Holiday CAFE" class="w-full h-full object-cover" loading="lazy"></div>
+            <div class="reveal aspect-square rounded-xl overflow-hidden" style="transition-delay:.06s"><img src="assets/images/galerie/zahradka.jpg" alt="Venkovní zahrádka — káva, domácí limonáda a dort na stole" class="w-full h-full object-cover" loading="lazy"></div>
+            <div class="reveal aspect-square rounded-xl overflow-hidden" style="transition-delay:.12s"><img src="assets/images/galerie/dorty.jpg" alt="Domácí dort s ostružinou, šlehačkou a cappuccinem" class="w-full h-full object-cover" loading="lazy"></div>
+            <div class="reveal aspect-square rounded-xl overflow-hidden" style="transition-delay:.18s"><img src="assets/images/galerie/zmrzlina.jpg" alt="Točená zmrzlina — vanilka a malina" class="w-full h-full object-cover" loading="lazy"></div>
+            <!-- Bubble Waffle: až bude fotka, ulož ji jako assets/images/galerie/bubble-waffle.jpg a nahraď tento placeholder:
+                 <div class="reveal rounded-xl overflow-hidden col-span-2 aspect-video sm:aspect-auto" style="transition-delay:.24s"><img src="assets/images/galerie/bubble-waffle.jpg" alt="Domácí bubble waffle se šlehačkou a čokoládou" class="w-full h-full object-cover" loading="lazy"></div> -->
+            <div class="reveal rounded-xl bg-cafe-sand/80 flex flex-col items-center justify-center gap-2 text-cafe-brown/30 col-span-2 aspect-video sm:aspect-auto" style="transition-delay:.24s" role="img" aria-label="Bubble waffle — foto brzy doplníme"><svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor"/><circle cx="15.5" cy="8.5" r="1.5" fill="currentColor"/><circle cx="8.5" cy="15.5" r="1.5" fill="currentColor"/><circle cx="15.5" cy="15.5" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg><p class="text-xs tracking-widest uppercase font-medium">Bubble Waffle</p></div>
+          </div>
+
+          <!-- Velké video pod všemi fotkami -->
+          <div class="reveal mt-4 aspect-video rounded-2xl bg-cafe-sand/50 flex flex-col items-center justify-center gap-5 text-cafe-brown/30"
+               role="img" aria-label="Video z kavárny Holiday CAFE — video brzy doplníme">
+            <svg class="w-16 h-16 sm:w-20 sm:h-20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16" fill="currentColor" stroke="none"/></svg>
+            <p class="text-sm sm:text-base tracking-widest uppercase font-medium">Video brzy doplníme</p>
+          </div>
         </div>
       </div>
     </section>
@@ -577,8 +741,52 @@
       </div>
     </section>
 
-    <!-- ============================================================ NAŠE PARTA (hnědá) ============================================================ -->
-    <section id="nase-parta" class="bg-cafe-brown text-cafe-cream py-20 sm:py-28">
+    <!-- ============================================================ O NÁS (hnědá) ============================================================ -->
+    <section id="o-nas" class="bg-cafe-brown text-cafe-cream py-20 sm:py-28">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-stretch">
+
+          <!-- Levý sloupec — text -->
+          <div>
+            <div class="reveal mb-8">
+              <h2 class="font-display text-4xl sm:text-5xl font-semibold leading-tight">O nás</h2>
+              <p class="mt-3 text-cafe-gold font-bold text-xl sm:text-2xl tracking-wide">S láskou k životu bez předsudků</p>
+            </div>
+
+            <div class="space-y-6">
+              <p class="reveal text-cafe-cream/90 text-lg leading-relaxed">
+                Jsme malá chráněná kavárnička na rohu náměstí malebného městečka Dolního Bousova, na samém okraji <strong class="text-cafe-cream font-semibold">Českého ráje</strong>. Hostům nabízíme výběrovou kávu a čaje nejvyšší kvality, domácí dezerty, vyhlášenou točenou zmrzlinu a další mňamky. Vše připravujeme s úsměvem a s láskou a doufáme, že se k nám přijdete podívat a následně budete rádi vracet.
+              </p>
+              <p class="reveal text-cafe-cream/65 leading-relaxed">
+                Interiér jsme pro vás sladili do přímořského stylu, abyste se u nás cítili <em class="text-cafe-gold not-italic font-medium">jako na dovolené</em> a zapomněli tak na všechny starosti.
+              </p>
+            </div>
+
+            <!-- Drobné štítky pod textem -->
+            <div class="reveal mt-8 flex flex-wrap gap-3">
+              <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-cafe-cream/10 ring-1 ring-cafe-cream/20 text-cafe-cream/80 text-xs font-medium">🚲 Cyklisté vítáni</span>
+              <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-cafe-cream/10 ring-1 ring-cafe-cream/20 text-cafe-cream/80 text-xs font-medium">🐕 Dog-friendly</span>
+              <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-cafe-cream/10 ring-1 ring-cafe-cream/20 text-cafe-cream/80 text-xs font-medium">👨‍👩‍👧 Rodiny s dětmi</span>
+            </div>
+          </div>
+
+          <!-- Pravý sloupec — fotka kavárny -->
+          <div class="reveal flex">
+            <div class="relative rounded-3xl overflow-hidden shadow-2xl ring-1 ring-cafe-cream/10 w-full min-h-[260px]">
+              <img src="assets/images/holiday-cafe-exterior.png"
+                   alt="Exteriér kavárny Holiday Café na náměstí v Dolním Bousově"
+                   class="absolute inset-0 w-full h-full object-cover object-top">
+              <div class="absolute inset-0 bg-gradient-to-t from-cafe-brown/40 via-transparent to-transparent"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ NAŠE PARTA (bílá) ============================================================ -->
+    <section id="nase-parta" class="bg-white py-20 sm:py-28">
       <div class="max-w-5xl mx-auto px-4 sm:px-6">
 
         <div class="max-w-2xl">
@@ -675,119 +883,174 @@
       </div>
     </section>
 
-    <!-- ============================================================ GALERIE (bílá) ============================================================ -->
-    <section id="galerie" class="bg-white py-20 sm:py-28">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6">
-        <div class="text-center max-w-xl mx-auto">
-          <p class="reveal text-xs font-semibold tracking-[0.3em] uppercase text-cafe-brown/55 mb-5">Galerie</p>
-          <h2 class="reveal font-display text-4xl sm:text-5xl font-semibold text-cafe-charcoal">U nás v kavárně</h2>
-          <p class="reveal mt-4 text-cafe-charcoal/50 leading-relaxed">
-            Fotky přibydou co nejdřív — sledujte nás na
-            <a href="https://www.instagram.com/holidaycafe_bousov/" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 hover:text-cafe-brown transition-colors">Instagramu</a>
-            a <a href="https://www.facebook.com/profile.php?id=100046929535066&locale=cs_CZ" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 hover:text-cafe-brown transition-colors">Facebooku</a>.
-          </p>
-        </div>
-
-        <div class="mt-12">
-          <div class="reveal w-full aspect-video rounded-2xl bg-cafe-sand/50 flex flex-col items-center justify-center gap-4 text-cafe-brown/30 mb-4"
-               role="img" aria-label="Interiér kavárny Holiday CAFE — foto brzy doplníme">
-            <svg class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2v11z"/><circle cx="12" cy="13" r="4"/></svg>
-            <p class="text-sm tracking-widest uppercase font-medium">Interiér kavárny</p>
-          </div>
-          <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
-            <div class="reveal aspect-square rounded-xl bg-cafe-sand/70 flex flex-col items-center justify-center gap-2 text-cafe-brown/30" role="img" aria-label="Výběrová káva — foto brzy doplníme"><svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg><p class="text-xs tracking-widest uppercase font-medium">Káva</p></div>
-            <div class="reveal aspect-square rounded-xl bg-cafe-sand/50 flex flex-col items-center justify-center gap-2 text-cafe-brown/30" style="transition-delay:.06s" role="img" aria-label="Venkovní zahrádka — foto brzy doplníme"><svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/></svg><p class="text-xs tracking-widest uppercase font-medium">Zahrádka</p></div>
-            <div class="reveal aspect-square rounded-xl bg-cafe-sand flex flex-col items-center justify-center gap-2 text-cafe-brown/30" style="transition-delay:.12s" role="img" aria-label="Domácí dorty — foto brzy doplníme"><svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8"/><path d="M2 21h20"/><path d="M7 8v3M12 8v3M17 8v3"/><path d="M7 4h.01M12 4h.01M17 4h.01"/></svg><p class="text-xs tracking-widest uppercase font-medium">Dorty</p></div>
-            <div class="reveal aspect-square rounded-xl bg-cafe-sand/60 flex flex-col items-center justify-center gap-2 text-cafe-brown/30" style="transition-delay:.18s" role="img" aria-label="Zmrzlinové poháry — foto brzy doplníme"><svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2a4 4 0 0 0-4 4c0 1.5.8 2.8 2 3.5V22h4V9.5c1.2-.7 2-2 2-3.5a4 4 0 0 0-4-4z"/></svg><p class="text-xs tracking-widest uppercase font-medium">Zmrzlina</p></div>
-            <div class="reveal aspect-square rounded-xl bg-cafe-sand/80 flex flex-col items-center justify-center gap-2 text-cafe-brown/30" style="transition-delay:.24s" role="img" aria-label="Bubble waffle — foto brzy doplníme"><svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor"/><circle cx="15.5" cy="8.5" r="1.5" fill="currentColor"/><circle cx="8.5" cy="15.5" r="1.5" fill="currentColor"/><circle cx="15.5" cy="15.5" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg><p class="text-xs tracking-widest uppercase font-medium">Bubble Waffle</p></div>
-            <div class="reveal aspect-square rounded-xl bg-cafe-sand/40 flex flex-col items-center justify-center gap-2 text-cafe-brown/30" style="transition-delay:.30s" role="img" aria-label="Naše parta — foto brzy doplníme"><svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><p class="text-xs tracking-widest uppercase font-medium">Naše parta</p></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================================ KDE NÁS NAJDETE (hnědá) ============================================================ -->
-    <section id="kde-nas-najdete" class="bg-cafe-brown text-cafe-cream py-20 sm:py-28">
+    <!-- ============================================================ KRÁSY DOLNÍHO BOUSOVA A OKOLÍ (hnědá) ============================================================ -->
+    <section id="vylety" class="bg-cafe-brown text-cafe-cream py-20 sm:py-28">
       <div class="max-w-5xl mx-auto px-4 sm:px-6">
 
         <div class="max-w-2xl">
-          <p class="reveal text-xs font-semibold tracking-[0.3em] uppercase text-cafe-gold mb-5">Kde nás najdete</p>
-          <h2 class="reveal font-display text-4xl sm:text-5xl font-semibold leading-tight">Na rohu náměstí,<br>u brány do Českého ráje</h2>
+          <p class="reveal text-xs font-semibold tracking-[0.3em] uppercase text-cafe-gold mb-5">Krásy okolí</p>
+          <h2 class="reveal font-display text-4xl sm:text-5xl font-semibold leading-tight">Krásy Dolního Bousova<br>a okolí</h2>
+          <p class="reveal mt-5 text-cafe-cream/70 leading-relaxed max-w-xl">
+            Dolní Bousov leží na okraji Českého ráje, takže je skvělým výchozím bodem na výlety — pěšky, na kole i autem. Jeden z našich oblíbených cyklovýletů vede přímo od dveří kavárny až k hradu Kost a zámku Humprecht.
+          </p>
         </div>
 
-        <div class="mt-14 grid lg:grid-cols-2 gap-10 lg:gap-14 items-start">
+        <!-- Trasa — přehled -->
+        <div class="reveal mt-8 flex flex-wrap items-center gap-x-2 gap-y-1.5 text-sm text-cafe-cream/80 bg-cafe-cream/[0.06] ring-1 ring-cafe-cream/15 rounded-2xl px-5 py-3.5 max-w-3xl">
+          <svg class="w-4 h-4 text-cafe-gold shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="17" r="3.5"/><circle cx="18" cy="17" r="3.5"/><path d="M6 17l4-9h3l-2 4M13 8h3l3 9M9 8h4l2 9"/></svg>
+          <span class="font-semibold text-cafe-cream">Holiday CAFE</span>
+          <span class="text-cafe-cream/35">→</span>
+          <span>Střehom</span>
+          <span class="text-cafe-cream/35">→</span>
+          <span>Hrad Kost</span>
+          <span class="text-cafe-cream/35">→</span>
+          <span>Sobotka &amp; Humprecht</span>
+          <span class="text-cafe-cream/35">→</span>
+          <span>Český ráj</span>
+          <span class="ml-1 text-cafe-cream/45 text-xs">· cca 25 km, klidné polní a lesní cesty</span>
+        </div>
 
-          <div id="kontakt" class="space-y-7">
+        <!-- Interaktivní mapa výletu -->
+        <div class="mt-10 grid lg:grid-cols-5 gap-8 lg:gap-10 items-start">
 
-            <div class="reveal flex gap-4 items-start">
-              <span class="inline-flex shrink-0 items-center justify-center w-11 h-11 rounded-xl bg-cafe-cream text-cafe-brown">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              </span>
-              <div>
-                <h3 class="font-semibold text-cafe-cream">Adresa</h3>
-                <p class="mt-1 text-sm text-cafe-cream/70 leading-relaxed">nám. T. G. Masaryka 270, 294 04 Dolní Bousov<br><span class="text-cafe-cream/45 text-xs">Rohový dům přímo na náměstí — kousek od Mladé Boleslavi, Sobotky a Kněžmostu.</span></p>
-              </div>
+          <div class="lg:col-span-3 reveal">
+            <div class="rounded-2xl bg-cafe-brown-deep/40 ring-1 ring-cafe-cream/10 p-3 sm:p-6">
+              <svg viewBox="0 0 800 320" class="w-full h-auto" role="group" aria-label="Interaktivní mapa cyklovýletu z Holiday CAFE">
+                <title>Cyklovýlet: Holiday CAFE → Střehom → Hrad Kost → Sobotka a Humprecht → Český ráj</title>
+
+                <!-- dekorativní kopce -->
+                <path d="M0,300 C120,262 220,292 340,266 C460,240 560,286 680,256 C740,242 780,255 800,250 L800,320 L0,320 Z" fill="#FDFBF7" opacity=".04"/>
+                <path d="M0,282 C140,312 260,252 420,277 C560,298 660,242 800,270" fill="none" stroke="#FDFBF7" stroke-opacity=".08" stroke-width="1.5"/>
+
+                <!-- dekorativní kolo -->
+                <g transform="translate(748,16) scale(1.25)" opacity=".22" stroke="#FDFBF7" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="6" cy="17" r="3.5"/><circle cx="18" cy="17" r="3.5"/><path d="M6 17l4-9h3l-2 4M13 8h3l3 9M9 8h4l2 9"/>
+                </g>
+
+                <!-- trasa -->
+                <path class="mapa-cesta" d="M90,235 C160,190 190,145 250,145 C310,145 350,250 410,250 C470,250 510,140 570,140 C630,140 665,190 720,215"/>
+
+                <!-- zastávky -->
+                <g class="mapa-bod active" data-point="kavarna" tabindex="0" role="button" aria-label="Holiday CAFE — start výletu">
+                  <circle class="mapa-halo" cx="90" cy="235" r="26"/>
+                  <circle class="mapa-terc" cx="90" cy="235" r="17"/>
+                  <text class="mapa-cislo" x="90" y="236" text-anchor="middle" dominant-baseline="central">1</text>
+                  <text class="mapa-label" x="90" y="270" text-anchor="middle">Holiday CAFE</text>
+                </g>
+
+                <g class="mapa-bod" data-point="strehom" tabindex="0" role="button" aria-label="Střehom — cca 7 km">
+                  <circle class="mapa-halo" cx="250" cy="145" r="26"/>
+                  <circle class="mapa-terc" cx="250" cy="145" r="17"/>
+                  <text class="mapa-cislo" x="250" y="146" text-anchor="middle" dominant-baseline="central">2</text>
+                  <text class="mapa-label" x="250" y="180" text-anchor="middle">Střehom</text>
+                </g>
+
+                <g class="mapa-bod" data-point="kost" tabindex="0" role="button" aria-label="Hrad Kost — cca 10 km">
+                  <circle class="mapa-halo" cx="410" cy="250" r="26"/>
+                  <circle class="mapa-terc" cx="410" cy="250" r="17"/>
+                  <text class="mapa-cislo" x="410" y="251" text-anchor="middle" dominant-baseline="central">3</text>
+                  <text class="mapa-label" x="410" y="285" text-anchor="middle">Hrad Kost</text>
+                </g>
+
+                <g class="mapa-bod" data-point="sobotka" tabindex="0" role="button" aria-label="Sobotka a zámek Humprecht — cca 6 km">
+                  <circle class="mapa-halo" cx="570" cy="140" r="26"/>
+                  <circle class="mapa-terc" cx="570" cy="140" r="17"/>
+                  <text class="mapa-cislo" x="570" y="141" text-anchor="middle" dominant-baseline="central">4</text>
+                  <text class="mapa-label" x="570" y="175" text-anchor="middle">Sobotka</text>
+                </g>
+
+                <g class="mapa-bod" data-point="cesky-raj" tabindex="0" role="button" aria-label="Český ráj — cca 25 km a dál">
+                  <circle class="mapa-halo" cx="720" cy="215" r="26"/>
+                  <circle class="mapa-terc" cx="720" cy="215" r="17"/>
+                  <text class="mapa-cislo" x="720" y="216" text-anchor="middle" dominant-baseline="central">5</text>
+                  <text class="mapa-label" x="720" y="250" text-anchor="middle">Český ráj</text>
+                </g>
+              </svg>
             </div>
 
-            <div class="reveal flex gap-4 items-start">
-              <span class="inline-flex shrink-0 items-center justify-center w-11 h-11 rounded-xl bg-cafe-cream text-cafe-brown">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
-              </span>
-              <div>
-                <h3 class="font-semibold text-cafe-cream">Otevírací doba</h3>
-                <dl class="mt-1 text-sm text-cafe-cream/70 space-y-1">
-                  <div class="flex gap-4"><dt class="font-medium w-32">Úterý–Neděle</dt><dd>11:30 – 17:30</dd></div>
-                  <div class="flex gap-4 text-cafe-cream/40"><dt class="font-medium w-32">Pondělí</dt><dd>zavřeno</dd></div>
-                </dl>
-              </div>
+            <div class="mt-4 flex flex-wrap gap-2" role="tablist" aria-label="Zastávky cyklovýletu">
+              <button type="button" class="vylet-pill active" data-point="kavarna" role="tab" aria-selected="true">1 · Holiday CAFE</button>
+              <button type="button" class="vylet-pill" data-point="strehom" role="tab" aria-selected="false">2 · Střehom</button>
+              <button type="button" class="vylet-pill" data-point="kost" role="tab" aria-selected="false">3 · Hrad Kost</button>
+              <button type="button" class="vylet-pill" data-point="sobotka" role="tab" aria-selected="false">4 · Sobotka &amp; Humprecht</button>
+              <button type="button" class="vylet-pill" data-point="cesky-raj" role="tab" aria-selected="false">5 · Český ráj</button>
             </div>
+          </div>
 
-            <div class="reveal flex gap-4 items-start">
-              <span class="inline-flex shrink-0 items-center justify-center w-11 h-11 rounded-xl bg-cafe-cream text-cafe-brown">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.22a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              </span>
-              <div>
-                <h3 class="font-semibold text-cafe-cream">Kontakt</h3>
-                <ul class="mt-1 space-y-1 text-sm text-cafe-cream/70">
-                  <li><a href="tel:+420733666194" class="hover:text-cafe-gold transition-colors">+420 733 666 194</a></li>
-                  <li><a href="mailto:jaroslavajakubcova@email.cz" class="hover:text-cafe-gold transition-colors break-all">jaroslavajakubcova@email.cz</a></li>
-                  <li>
-                    <a href="https://www.facebook.com/profile.php?id=100046929535066&locale=cs_CZ" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 hover:text-cafe-gold transition-colors">
-                      <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.8-4.7 4.54-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.5c-1.5 0-1.96.93-1.96 1.89v2.26h3.32l-.53 3.5h-2.8V24C19.62 23.1 24 18.1 24 12.07z"/></svg>
-                      Holiday CAFE na Facebooku
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="reveal bg-cafe-brown-light/50 ring-1 ring-cafe-cream/10 rounded-2xl p-5 flex items-center gap-4">
-              <span class="font-display text-3xl font-bold text-cafe-gold shrink-0">4,9<span class="text-base text-cafe-cream/30">/5</span></span>
-              <div>
-                <div class="flex gap-0.5 text-cafe-gold" role="img" aria-label="4.9 z 5 hvězdiček">
-                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L21.5 9.27l-4.75 4.36 1.15 6.87L12 17.27l-5.9 3.23 1.15-6.87L2.5 9.27l6.6-1.01L12 2z"/></svg>
-                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L21.5 9.27l-4.75 4.36 1.15 6.87L12 17.27l-5.9 3.23 1.15-6.87L2.5 9.27l6.6-1.01L12 2z"/></svg>
-                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L21.5 9.27l-4.75 4.36 1.15 6.87L12 17.27l-5.9 3.23 1.15-6.87L2.5 9.27l6.6-1.01L12 2z"/></svg>
-                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L21.5 9.27l-4.75 4.36 1.15 6.87L12 17.27l-5.9 3.23 1.15-6.87L2.5 9.27l6.6-1.01L12 2z"/></svg>
-                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L21.5 9.27l-4.75 4.36 1.15 6.87L12 17.27l-5.9 3.23 1.15-6.87L2.5 9.27l6.6-1.01L12 2z"/></svg>
+          <div class="lg:col-span-2 reveal lg:sticky lg:top-24">
+            <div id="vylet-panel" class="rounded-2xl overflow-hidden bg-cafe-cream/[0.06] ring-1 ring-cafe-cream/15" aria-live="polite">
+              <div class="aspect-[4/3] relative overflow-hidden bg-cafe-brown-deep/40">
+                <img id="vylet-panel-img" src="assets/images/interier-kavarny-2.png" alt="Interiér kavárny Holiday CAFE v Dolním Bousově" class="absolute inset-0 w-full h-full object-cover">
+                <div id="vylet-panel-placeholder" class="absolute inset-0 flex-col items-center justify-center gap-3 text-cafe-cream/25" style="display:none;">
+                  <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2v11z"/><circle cx="12" cy="13" r="4"/></svg>
+                  <p class="text-xs tracking-widest uppercase font-medium">Foto brzy doplníme</p>
                 </div>
-                <p class="mt-1 text-xs text-cafe-cream/55 leading-snug">na Firmy.cz — chválíte kávu, útulnou atmosféru a ochotnou obsluhu.</p>
+              </div>
+              <div class="p-6">
+                <div class="flex items-center justify-between gap-3 mb-2">
+                  <span id="vylet-panel-eyebrow" class="text-xs font-semibold tracking-[0.15em] uppercase text-cafe-gold">Bod 1 · Start výletu</span>
+                  <span id="vylet-panel-km" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-cafe-cream/10 text-cafe-cream/70 whitespace-nowrap">0 km</span>
+                </div>
+                <h3 id="vylet-panel-title" class="font-display text-xl font-semibold text-cafe-cream">Holiday CAFE</h3>
+                <p id="vylet-panel-desc" class="mt-2 text-sm text-cafe-cream/70 leading-relaxed">Dáte si kávu s sebou, kolo opřete u zahrádky a vyrazíte — cyklostezka i silnice na Sobotku vedou prakticky od našich dveří.</p>
               </div>
             </div>
           </div>
 
-          <div class="reveal lg:sticky lg:top-24">
-            <div class="rounded-2xl overflow-hidden shadow-xl ring-1 ring-cafe-cream/10">
-              <iframe
-                src="https://maps.google.com/maps?q=n%C3%A1m.%20T.%20G.%20Masaryka%20270%2C%20294%2004%20Doln%C3%AD%20Bousov&t=&z=16&ie=UTF8&iwloc=&output=embed"
-                width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-                title="Mapa — Holiday CAFE, Dolní Bousov">
-              </iframe>
-            </div>
-            <p class="mt-3 text-sm text-cafe-cream/45 text-center">Parkování přímo na náměstí &nbsp;·&nbsp; stojany na kola u zahrádky · Wi-Fi zdarma · platba kartou i QR</p>
+        </div>
+
+        <!-- Fotky z trasy -->
+        <div class="mt-16">
+          <p class="reveal text-xs font-semibold tracking-[0.3em] uppercase text-cafe-gold mb-6">Co po cestě uvidíte</p>
+          <div class="grid sm:grid-cols-2 gap-5">
+
+            <figure class="reveal rounded-2xl overflow-hidden ring-1 ring-cafe-cream/10">
+              <div class="aspect-[4/3]">
+                <img src="assets/images/vylety/hrad-kost.jpg" alt="Gotický hrad Kost v Českém ráji" class="w-full h-full object-cover">
+              </div>
+              <figcaption class="px-4 py-3 bg-cafe-brown-deep/40">
+                <p class="text-sm font-medium text-cafe-cream">Hrad Kost</p>
+                <p class="text-xs text-cafe-cream/35 mt-0.5">Gotický hrad na pískovcové skále · cca 10 km od kavárny</p>
+              </figcaption>
+            </figure>
+
+            <figure class="reveal rounded-2xl overflow-hidden ring-1 ring-cafe-cream/10" style="transition-delay:.06s">
+              <div class="aspect-[4/3]">
+                <img src="assets/images/vylety/humprecht.jpg" alt="Barokní lovecký zámek Humprecht nad Sobotkou" class="w-full h-full object-cover">
+              </div>
+              <figcaption class="px-4 py-3 bg-cafe-brown-deep/40">
+                <p class="text-sm font-medium text-cafe-cream">Zámek Humprecht</p>
+                <p class="text-xs text-cafe-cream/35 mt-0.5">Barokní lovecký zámeček nad Sobotkou · cca 6 km od kavárny</p>
+              </figcaption>
+            </figure>
+
+            <figure class="reveal rounded-2xl overflow-hidden ring-1 ring-cafe-cream/10" style="transition-delay:.12s">
+              <div class="aspect-[4/3]">
+                <img src="assets/images/vylety/sobotka-namesti.jpg" alt="Náměstí Míru v Sobotce" class="w-full h-full object-cover">
+              </div>
+              <figcaption class="px-4 py-3 bg-cafe-brown-deep/40">
+                <p class="text-sm font-medium text-cafe-cream">Náměstí v Sobotce</p>
+                <p class="text-xs text-cafe-cream/35 mt-0.5">Malebné náměstí s barevnými domky · cca 6 km od kavárny</p>
+              </figcaption>
+            </figure>
+
+            <figure class="reveal rounded-2xl overflow-hidden ring-1 ring-cafe-cream/10" style="transition-delay:.18s">
+              <div class="aspect-[4/3]">
+                <img src="assets/images/vylety/cesky-raj-prachovske-skaly.jpg" alt="Skalní vyhlídka s borovicí v Českém ráji" class="w-full h-full object-cover">
+              </div>
+              <figcaption class="px-4 py-3 bg-cafe-brown-deep/40">
+                <p class="text-sm font-medium text-cafe-cream">Český ráj</p>
+                <p class="text-xs text-cafe-cream/35 mt-0.5">Skalní vyhlídky a rozhledy do kraje · cca 25 km a dál</p>
+              </figcaption>
+            </figure>
+
           </div>
         </div>
+
+        <p class="reveal mt-8 text-sm text-cafe-cream/45 leading-relaxed max-w-2xl">
+          Trasa vede převážně po klidných silnicích a polních cestách, vhodná je i pro trekingové kolo. Vzdálenosti jsou orientační — a kdyby vás cestou zastihl hlad, u nás na zpáteční cestě bude ještě teplá káva.
+        </p>
+
       </div>
     </section>
 
@@ -886,10 +1149,13 @@
         <nav aria-label="Patička — navigace" class="flex flex-col items-center sm:items-start">
           <p class="text-xs uppercase tracking-widest text-white mb-3">Navigace</p>
           <ul class="flex flex-col items-center sm:items-start gap-2 text-sm">
-            <li><a href="#o-nas"           class="hover:text-cafe-gold transition-colors">O nás</a></li>
-            <li><a href="#menu"            class="hover:text-cafe-gold transition-colors">Menu</a></li>
-            <li><a href="#nase-parta"      class="hover:text-cafe-gold transition-colors">Naše parta</a></li>
+            <li><a href="#kde-nas-najdete" class="hover:text-cafe-gold transition-colors">Kde nás najdete</a></li>
+            <li><a href="#oteviraci-doba"  class="hover:text-cafe-gold transition-colors">Otevírací doba</a></li>
             <li><a href="#galerie"         class="hover:text-cafe-gold transition-colors">Galerie</a></li>
+            <li><a href="#menu"            class="hover:text-cafe-gold transition-colors">Menu</a></li>
+            <li><a href="#o-nas"           class="hover:text-cafe-gold transition-colors">O nás</a></li>
+            <li><a href="#nase-parta"      class="hover:text-cafe-gold transition-colors">Naše parta</a></li>
+            <li><a href="#vylety"          class="hover:text-cafe-gold transition-colors">Výlety</a></li>
             <li><a href="#dorty"           class="hover:text-cafe-gold transition-colors">Dorty na objednání</a></li>
             <li><a href="#kontakt"         class="hover:text-cafe-gold transition-colors">Kontakt</a></li>
           </ul>
@@ -1016,6 +1282,96 @@
             panel.classList.toggle('hidden', panel.id !== 'tab-' + target);
           });
         });
+      });
+
+      /* 6. Interaktivní mapa výletu */
+      const vyletData = {
+        kavarna: {
+          eyebrow: 'Bod 1 · Start výletu',
+          km: '0 km',
+          title: 'Holiday CAFE',
+          desc: 'Dáte si kávu s sebou, kolo opřete u zahrádky a vyrazíte — cyklostezka i silnice na Sobotku vedou prakticky od našich dveří.',
+          img: 'assets/images/interier-kavarny-2.png',
+          alt: 'Interiér kavárny Holiday CAFE v Dolním Bousově'
+        },
+        strehom: {
+          eyebrow: 'Bod 2 · cca 7 km od kavárny',
+          km: 'cca 7 km',
+          title: 'Střehom',
+          desc: 'Klidná vesnička s roubenkami a historickým mlýnem v údolí Klenice — ideální na krátké nadechnutí v polovině cesty.',
+          img: 'assets/images/vylety/strehom.jpg',
+          alt: 'Roubené chalupy ve vesničce Střehom'
+        },
+        kost: {
+          eyebrow: 'Bod 3 · cca 10 km od kavárny',
+          km: 'cca 10 km',
+          title: 'Hrad Kost',
+          desc: 'Jeden z nejlépe dochovaných gotických hradů u nás. Věž vykoukne z lesa už zdálky — vyplatí se zajet i dovnitř.',
+          img: 'assets/images/vylety/hrad-kost-podzim.jpg',
+          alt: 'Gotický hrad Kost v podzimních barvách'
+        },
+        sobotka: {
+          eyebrow: 'Bod 4 · cca 6 km od kavárny',
+          km: 'cca 6 km',
+          title: 'Sobotka & zámek Humprecht',
+          desc: 'Malebné náměstí a nad městem barokní lovecký zámeček Humprecht s jedním z nejhezčích výhledů do Českého ráje.',
+          img: 'assets/images/vylety/humprecht.jpg',
+          alt: 'Barokní lovecký zámek Humprecht nad Sobotkou'
+        },
+        'cesky-raj': {
+          eyebrow: 'Bod 5 · cca 25 km a dál',
+          km: 'cca 25+ km',
+          title: 'Český ráj',
+          desc: 'A pokud vám ještě slouží nohy i pedály, kousek dál na vás čeká celý Český ráj — Prachovské skály, Trosky a další skalní vyhlídky.',
+          img: 'assets/images/vylety/cesky-raj-prachovske-skaly.jpg',
+          alt: 'Skalní vyhlídka s borovicí v Českém ráji'
+        }
+      };
+
+      const vyletPanelImg = document.getElementById('vylet-panel-img');
+      const vyletPanelPh  = document.getElementById('vylet-panel-placeholder');
+      const vyletEyebrow  = document.getElementById('vylet-panel-eyebrow');
+      const vyletKm       = document.getElementById('vylet-panel-km');
+      const vyletTitle    = document.getElementById('vylet-panel-title');
+      const vyletDesc     = document.getElementById('vylet-panel-desc');
+      const vyletMarkers  = document.querySelectorAll('.mapa-bod');
+      const vyletPills    = document.querySelectorAll('.vylet-pill');
+
+      function selectVyletBod(id) {
+        const data = vyletData[id];
+        if (!data || ! vyletPanelImg) return;
+
+        vyletEyebrow.textContent = data.eyebrow;
+        vyletKm.textContent = data.km;
+        vyletTitle.textContent = data.title;
+        vyletDesc.textContent = data.desc;
+
+        if (data.img) {
+          vyletPanelImg.src = data.img;
+          vyletPanelImg.alt = data.alt;
+          vyletPanelImg.style.display = 'block';
+          vyletPanelPh.style.display = 'none';
+        } else {
+          vyletPanelImg.style.display = 'none';
+          vyletPanelPh.style.display = 'flex';
+        }
+
+        vyletMarkers.forEach(function (m) { m.classList.toggle('active', m.getAttribute('data-point') === id); });
+        vyletPills.forEach(function (p) {
+          const active = p.getAttribute('data-point') === id;
+          p.classList.toggle('active', active);
+          p.setAttribute('aria-selected', String(active));
+        });
+      }
+
+      vyletMarkers.forEach(function (m) {
+        m.addEventListener('click', function () { selectVyletBod(m.getAttribute('data-point')); });
+        m.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectVyletBod(m.getAttribute('data-point')); }
+        });
+      });
+      vyletPills.forEach(function (p) {
+        p.addEventListener('click', function () { selectVyletBod(p.getAttribute('data-point')); });
       });
 
     })();
