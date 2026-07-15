@@ -11,7 +11,7 @@
   <link rel="icon" type="image/png" href="assets/images/Holiday%20cafe%20logo.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#4A3525">
+  <meta name="theme-color" content="#3D2B1D">
 
   <!-- Lokální SEO — geo tagy (Seznam.cz a lokální vyhledávače) -->
   <meta name="geo.region" content="CZ-20">
@@ -255,9 +255,9 @@
       theme: {
         extend: {
           colors: {
-            'cafe-brown':       '#4A3525',
-            'cafe-brown-light': '#5C4033',
-            'cafe-brown-deep':  '#3A2A1D',
+            'cafe-brown':       '#3D2B1D',
+            'cafe-brown-light': '#4F362B',
+            'cafe-brown-deep':  '#2D2015',
             'cafe-cream':       '#FDFBF7',
             'cafe-charcoal':    '#1F1B16',
             'cafe-sand':        '#EAE0D2',
@@ -277,7 +277,7 @@
     section[id], div[id="kontakt"] { scroll-margin-top: 5rem; }
 
     /* Navbar — vždy pevně hnědá bez ohledu na sekci pod ní */
-    header { background-color: #4A3525 !important; }
+    header { background-color: #3D2B1D !important; }
 
     /* Nav underline */
     .nav-link { position: relative; transition: color .2s; }
@@ -308,14 +308,14 @@
     }
 
     /* Menu tab active */
-    .menu-tab.active { background: #4A3525; border-color: #4A3525; color: #FDFBF7; }
+    .menu-tab.active { background: #3D2B1D; border-color: #3D2B1D; color: #FDFBF7; }
     .menu-panel { min-height: 180px; }
 
     /* Price row */
     .menu-item { display: flex; align-items: baseline; font-size: .875rem; color: #1F1B16; }
     .menu-name  { flex: 1; min-width: 0; }
     .menu-dots  { flex: 0 1 auto; border-bottom: 1.5px dotted rgba(201,162,39,.35); margin: 0 8px 3px; min-width: 16px; }
-    .menu-price { font-weight: 600; color: #4A3525; white-space: nowrap; flex-shrink: 0; }
+    .menu-price { font-weight: 600; color: #3D2B1D; white-space: nowrap; flex-shrink: 0; }
 
     /* ─── Tým — karty zaměstnanců ─── */
     .tym-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
@@ -363,7 +363,7 @@
     .mapa-bod:hover .mapa-terc, .mapa-bod:focus-visible .mapa-terc, .mapa-bod.active .mapa-terc { transform: scale(1.15); }
     .mapa-bod:hover .mapa-halo, .mapa-bod:focus-visible .mapa-halo, .mapa-bod.active .mapa-halo { opacity: .3; transform: scale(1.3); }
     .mapa-bod.active .mapa-terc { fill: #C9A227; }
-    .mapa-cislo { font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 15px; fill: #4A3525; pointer-events: none; }
+    .mapa-cislo { font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 15px; fill: #3D2B1D; pointer-events: none; }
     .mapa-label { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 15px; fill: #FDFBF7; opacity: .85; pointer-events: none; }
 
     .vylet-pill {
@@ -374,16 +374,54 @@
       transition: background .2s ease, color .2s ease, border-color .2s ease;
     }
     .vylet-pill:hover { border-color: rgba(201,162,39,.5); color: #FDFBF7; }
-    .vylet-pill.active { background: #C9A227; border-color: #C9A227; color: #3A2A1D; }
+    .vylet-pill.active { background: #C9A227; border-color: #C9A227; color: #2D2015; }
 
     @media (prefers-reduced-motion: reduce) { .mapa-cesta { animation: none; } }
+
+    /* ─── Fotky — rozklikávací lightbox ─── */
+    .lightbox-trigger { cursor: zoom-in; }
+
+    #lightbox {
+      position: fixed; inset: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.25rem;
+      background: rgba(18,13,9,.94);
+      opacity: 0; visibility: hidden;
+      transition: opacity .25s ease, visibility 0s linear .25s;
+    }
+    #lightbox.open { opacity: 1; visibility: visible; transition: opacity .25s ease; }
+    #lightbox-figure { max-width: min(92vw, 1200px); max-height: 90vh; margin: 0; display: flex; flex-direction: column; align-items: center; }
+    #lightbox-img {
+      display: block; max-width: 100%; max-height: 78vh; width: auto; height: auto;
+      border-radius: 10px; box-shadow: 0 24px 70px rgba(0,0,0,.55);
+      transform: scale(.96); transition: transform .25s ease;
+    }
+    #lightbox.open #lightbox-img { transform: scale(1); }
+    #lightbox-caption { margin-top: 1rem; color: #FDFBF7; opacity: .7; font-size: .875rem; text-align: center; max-width: 65ch; }
+    .lightbox-btn {
+      position: fixed; display: flex; align-items: center; justify-content: center;
+      width: 2.75rem; height: 2.75rem; border-radius: 9999px; padding: 0;
+      background: rgba(253,251,247,.08); color: #FDFBF7; border: 1px solid rgba(253,251,247,.2);
+      cursor: pointer; transition: background .2s ease, border-color .2s ease;
+    }
+    .lightbox-btn:hover, .lightbox-btn:focus-visible { background: rgba(253,251,247,.18); border-color: rgba(201,162,39,.6); }
+    #lightbox-close { top: 1.25rem; right: 1.25rem; }
+    #lightbox-prev, #lightbox-next { top: 50%; transform: translateY(-50%); }
+    #lightbox-prev { left: 1.25rem; }
+    #lightbox-next { right: 1.25rem; }
+    @media (max-width: 640px) {
+      .lightbox-btn { width: 2.35rem; height: 2.35rem; }
+      #lightbox-close { top: .75rem; right: .75rem; }
+      #lightbox-prev { left: .5rem; }
+      #lightbox-next { right: .5rem; }
+    }
   </style>
 </head>
 
 <body class="font-body bg-white text-cafe-charcoal antialiased">
 
   <!-- ============================================================ NAVBAR ============================================================ -->
-  <header class="fixed top-0 inset-x-0 z-50 shadow-lg" style="background-color: #4A3525;">
+  <header class="fixed top-0 inset-x-0 z-50 shadow-lg" style="background-color: #3D2B1D;">
     <nav class="max-w-6xl mx-auto flex items-center justify-between px-4 sm:px-6 py-3.5" aria-label="Hlavní navigace">
 
       <a href="#hero" class="flex items-center gap-2.5" aria-label="Holiday CAFE — zpět na začátek">
@@ -464,47 +502,37 @@
       <div class="relative flex-1 flex flex-col items-center justify-center text-center px-4 sm:px-8 pt-28 pb-12">
         <div class="max-w-3xl w-full">
 
-          <div class="reveal flex items-center justify-center gap-3 mb-7">
-            <div class="w-10 h-px bg-cafe-gold/50"></div>
-            <span class="text-cafe-cream/60 text-[0.65rem] sm:text-xs font-medium tracking-[0.15em] sm:tracking-[0.35em] uppercase whitespace-nowrap">Chráněná kavárna · Dolní Bousov</span>
-            <div class="w-10 h-px bg-cafe-gold/50"></div>
-          </div>
-
-          <div class="reveal flex flex-col items-center gap-5 mb-7">
-            <span class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white/95 shadow-2xl">
-              <img src="assets/images/Holiday%20cafe%20logo.png" alt="Logo Holiday CAFE" width="225" height="225" class="w-14 h-14 object-contain">
+          <div class="reveal flex flex-col items-center gap-6 mb-9">
+            <span class="inline-flex items-center justify-center w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-white/95 shadow-2xl">
+              <img src="assets/images/Holiday%20cafe%20logo.png" alt="Logo Holiday CAFE" width="225" height="225" class="w-16 h-16 sm:w-20 sm:h-20 object-contain">
             </span>
             <h1 class="font-display text-cafe-cream text-center leading-none">
-              <span class="block font-bold tracking-tight text-5xl sm:text-6xl lg:text-7xl">Holiday CAFE</span>
-              <span class="block font-semibold tracking-[0.2em] uppercase text-sm sm:text-base text-cafe-cream mt-3">Chráněná kavárna · Dolní Bousov</span>
+              <span class="block font-bold tracking-tight text-5xl sm:text-7xl lg:text-8xl">Holiday CAFE</span>
+              <span class="block font-semibold tracking-[0.2em] uppercase text-base sm:text-lg text-cafe-cream mt-4">Kavárna na náměstí v Dolním Bousově</span>
             </h1>
           </div>
 
-          <h2 class="reveal font-display italic font-medium text-cafe-cream/95 text-lg sm:text-xl lg:text-2xl max-w-xl mx-auto mb-4 leading-snug text-center">
-            Malá chráněná kavárnička na rohu náměstí v Dolním Bousově, na okraji Českého ráje.
+          <h2 class="reveal font-display italic font-medium text-cafe-cream/95 text-xl sm:text-2xl lg:text-3xl max-w-2xl mx-auto mb-12 leading-snug text-center">
+            Jsme malá chráněná kavárnička na rohu náměstí v Dolním Bousově, na okraji Českého ráje.
           </h2>
 
-          <p class="reveal text-cafe-cream/70 text-sm sm:text-base max-w-xl mx-auto mb-10 leading-relaxed text-center">
-            Výběrová káva a čaje, domácí dezerty, vyhlášená točená zmrzlina a další mňamky — vše s úsměvem a s láskou. Interiér jsme sladili do přímořského stylu, abyste se u nás cítili <em class="text-cafe-gold not-italic font-medium">jako na dovolené</em> a na chvíli zapomněli na všechny starosti.
-          </p>
-
-          <div class="reveal flex flex-col sm:flex-row items-center justify-center gap-3">
-            <a href="#menu" class="inline-flex items-center gap-2 bg-cafe-gold text-cafe-brown-deep px-7 py-3.5 rounded-full font-semibold shadow-xl hover:brightness-110 hover:-translate-y-0.5 transition-all text-sm">
+          <div class="reveal flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="#menu" class="inline-flex items-center gap-2 bg-cafe-gold text-cafe-brown-deep px-8 py-4 rounded-full font-semibold shadow-xl hover:brightness-110 hover:-translate-y-0.5 transition-all text-base">
               Podívejte se na menu
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14m0 0l-6-6m6 6l6-6"/></svg>
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14m0 0l-6-6m6 6l6-6"/></svg>
             </a>
-            <a href="#kde-nas-najdete" class="inline-flex items-center gap-2 border border-cafe-cream/50 text-cafe-cream px-7 py-3.5 rounded-full font-medium hover:bg-cafe-cream hover:text-cafe-brown transition-all text-sm">
+            <a href="#kde-nas-najdete" class="inline-flex items-center gap-2 border border-cafe-cream/50 text-cafe-cream px-8 py-4 rounded-full font-medium hover:bg-cafe-cream hover:text-cafe-brown transition-all text-base">
               Jak nás najdete
             </a>
           </div>
 
-          <div class="reveal mt-10 flex items-center justify-center gap-2 text-cafe-cream/45 text-sm">
-            <div class="flex gap-0.5" role="img" aria-label="5 hvězdiček">
-              <svg class="w-4 h-4 text-cafe-gold" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L21.5 9.27l-4.75 4.36 1.15 6.87L12 17.27l-5.9 3.23 1.15-6.87L2.5 9.27l6.6-1.01L12 2z"/></svg>
-              <svg class="w-4 h-4 text-cafe-gold" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L21.5 9.27l-4.75 4.36 1.15 6.87L12 17.27l-5.9 3.23 1.15-6.87L2.5 9.27l6.6-1.01L12 2z"/></svg>
-              <svg class="w-4 h-4 text-cafe-gold" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L21.5 9.27l-4.75 4.36 1.15 6.87L12 17.27l-5.9 3.23 1.15-6.87L2.5 9.27l6.6-1.01L12 2z"/></svg>
-              <svg class="w-4 h-4 text-cafe-gold" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L21.5 9.27l-4.75 4.36 1.15 6.87L12 17.27l-5.9 3.23 1.15-6.87L2.5 9.27l6.6-1.01L12 2z"/></svg>
-              <svg class="w-4 h-4 text-cafe-gold" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L21.5 9.27l-4.75 4.36 1.15 6.87L12 17.27l-5.9 3.23 1.15-6.87L2.5 9.27l6.6-1.01L12 2z"/></svg>
+          <div class="reveal mt-12 flex items-center justify-center gap-2 text-cafe-cream/45 text-base">
+            <div class="flex gap-1" role="img" aria-label="5 hvězdiček">
+              <svg class="w-5 h-5 text-cafe-gold" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L21.5 9.27l-4.75 4.36 1.15 6.87L12 17.27l-5.9 3.23 1.15-6.87L2.5 9.27l6.6-1.01L12 2z"/></svg>
+              <svg class="w-5 h-5 text-cafe-gold" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L21.5 9.27l-4.75 4.36 1.15 6.87L12 17.27l-5.9 3.23 1.15-6.87L2.5 9.27l6.6-1.01L12 2z"/></svg>
+              <svg class="w-5 h-5 text-cafe-gold" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L21.5 9.27l-4.75 4.36 1.15 6.87L12 17.27l-5.9 3.23 1.15-6.87L2.5 9.27l6.6-1.01L12 2z"/></svg>
+              <svg class="w-5 h-5 text-cafe-gold" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L21.5 9.27l-4.75 4.36 1.15 6.87L12 17.27l-5.9 3.23 1.15-6.87L2.5 9.27l6.6-1.01L12 2z"/></svg>
+              <svg class="w-5 h-5 text-cafe-gold" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L21.5 9.27l-4.75 4.36 1.15 6.87L12 17.27l-5.9 3.23 1.15-6.87L2.5 9.27l6.6-1.01L12 2z"/></svg>
             </div>
             <span>4,9 / 5 na Firmy.cz</span>
           </div>
@@ -524,9 +552,8 @@
 
         <div class="max-w-2xl">
           <p class="reveal text-xs font-semibold tracking-[0.3em] uppercase text-cafe-gold mb-5">Kde nás najdete</p>
-          <h2 class="reveal font-display text-4xl sm:text-5xl font-semibold leading-tight">Na rohu náměstí,<br>u brány do Českého ráje</h2>
           <p class="reveal mt-5 text-cafe-cream/70 leading-relaxed">
-            Stojíme na rohu náměstí T. G. Masaryka v Dolním Bousově. Pokud míříte na hrad Kost, zámek Humprecht, do Sobotky nebo do Mnichova Hradiště, jsme ideální zastávka na kávu a zmrzlinu cestou do Českého ráje.
+            Stojíme na rohu náměstí T. G. Masaryka v Dolním Bousově, u brány do Českého ráje. Pokud míříte na hrad Kost, zámek Humprecht, do Sobotky nebo do Mnichova Hradiště, jsme ideální zastávka na kávu a zmrzlinu cestou do Českého ráje.
           </p>
         </div>
 
@@ -667,14 +694,14 @@
 
         <div class="mt-12">
           <figure class="reveal aspect-video sm:aspect-[21/9] rounded-2xl overflow-hidden mb-4">
-            <img src="assets/images/galerie/interier.webp" alt="Interiér kavárny Holiday CAFE — dřevěné lavice, bambusové stěny a obrázky moře" width="1600" height="1062" class="w-full h-full object-cover" loading="lazy" decoding="async">
+            <img src="assets/images/galerie/interier.webp" alt="Interiér kavárny Holiday CAFE — dřevěné lavice, bambusové stěny a obrázky moře" width="1600" height="1062" class="w-full h-full object-cover lightbox-trigger" data-lightbox-group="galerie" loading="lazy" decoding="async">
             <figcaption class="sr-only">Interiér kavárny Holiday CAFE v Dolním Bousově — přímořský styl s dřevěnými lavicemi a bambusovými stěnami</figcaption>
           </figure>
           <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
-            <figure class="reveal aspect-square rounded-xl overflow-hidden"><img src="assets/images/galerie/kava.webp" alt="Espresso Nordbeans na dřevěném podnose s logem Holiday CAFE" width="1050" height="1400" class="w-full h-full object-cover" loading="lazy" decoding="async"><figcaption class="sr-only">Výběrová káva Nordbeans — espresso servírované na dřevěném podnose</figcaption></figure>
-            <figure class="reveal aspect-square rounded-xl overflow-hidden" style="transition-delay:.06s"><img src="assets/images/galerie/zahradka.webp" alt="Venkovní zahrádka — káva, domácí limonáda a dort na stole" width="1600" height="800" class="w-full h-full object-cover" loading="lazy" decoding="async"><figcaption class="sr-only">Venkovní zahrádka Holiday CAFE na náměstí v Dolním Bousově</figcaption></figure>
-            <figure class="reveal aspect-square rounded-xl overflow-hidden" style="transition-delay:.12s"><img src="assets/images/galerie/dorty.webp" alt="Domácí dort s ostružinou, šlehačkou a cappuccinem" width="768" height="960" class="w-full h-full object-cover" loading="lazy" decoding="async"><figcaption class="sr-only">Domácí dorty a dezerty — pečeme i na objednávku</figcaption></figure>
-            <figure class="reveal aspect-square rounded-xl overflow-hidden" style="transition-delay:.18s"><img src="assets/images/galerie/zmrzlina.webp" alt="Točená zmrzlina — vanilka a malina" width="1400" height="931" class="w-full h-full object-cover" loading="lazy" decoding="async"><figcaption class="sr-only">Vyhlášená točená zmrzlina Holiday CAFE — vanilka a malina</figcaption></figure>
+            <figure class="reveal aspect-square rounded-xl overflow-hidden"><img src="assets/images/galerie/kava.webp" alt="Espresso Nordbeans na dřevěném podnose s logem Holiday CAFE" width="1050" height="1400" class="w-full h-full object-cover lightbox-trigger" data-lightbox-group="galerie" loading="lazy" decoding="async"><figcaption class="sr-only">Výběrová káva Nordbeans — espresso servírované na dřevěném podnose</figcaption></figure>
+            <figure class="reveal aspect-square rounded-xl overflow-hidden" style="transition-delay:.06s"><img src="assets/images/galerie/zahradka.webp" alt="Venkovní zahrádka — káva, domácí limonáda a dort na stole" width="1600" height="800" class="w-full h-full object-cover lightbox-trigger" data-lightbox-group="galerie" loading="lazy" decoding="async"><figcaption class="sr-only">Venkovní zahrádka Holiday CAFE na náměstí v Dolním Bousově</figcaption></figure>
+            <figure class="reveal aspect-square rounded-xl overflow-hidden" style="transition-delay:.12s"><img src="assets/images/galerie/dorty.webp" alt="Domácí dort s ostružinou, šlehačkou a cappuccinem" width="768" height="960" class="w-full h-full object-cover lightbox-trigger" data-lightbox-group="galerie" loading="lazy" decoding="async"><figcaption class="sr-only">Domácí dorty a dezerty — pečeme i na objednávku</figcaption></figure>
+            <figure class="reveal aspect-square rounded-xl overflow-hidden" style="transition-delay:.18s"><img src="assets/images/galerie/zmrzlina.webp" alt="Točená zmrzlina — vanilka a malina" width="1400" height="931" class="w-full h-full object-cover lightbox-trigger" data-lightbox-group="galerie" loading="lazy" decoding="async"><figcaption class="sr-only">Vyhlášená točená zmrzlina Holiday CAFE — vanilka a malina</figcaption></figure>
             <!-- Bubble Waffle: až bude fotka, ulož ji jako assets/images/galerie/bubble-waffle.jpg a nahraď tento placeholder:
                  <div class="reveal rounded-xl overflow-hidden col-span-2 aspect-video sm:aspect-auto" style="transition-delay:.24s"><img src="assets/images/galerie/bubble-waffle.jpg" alt="Domácí bubble waffle se šlehačkou a čokoládou" class="w-full h-full object-cover" loading="lazy"></div> -->
             <div class="reveal rounded-xl bg-cafe-sand/80 flex flex-col items-center justify-center gap-2 text-cafe-brown/30 col-span-2 aspect-video sm:aspect-auto" style="transition-delay:.24s" role="img" aria-label="Bubble waffle — foto brzy doplníme"><svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor"/><circle cx="15.5" cy="8.5" r="1.5" fill="currentColor"/><circle cx="8.5" cy="15.5" r="1.5" fill="currentColor"/><circle cx="15.5" cy="15.5" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg><p class="text-xs tracking-widest uppercase font-medium">Bubble Waffle</p></div>
@@ -986,8 +1013,8 @@
               <img src="assets/images/holiday-cafe-exterior.webp"
                    alt="Exteriér kavárny Holiday Café na náměstí v Dolním Bousově"
                    width="1346" height="606" loading="lazy" decoding="async"
-                   class="absolute inset-0 w-full h-full object-cover object-top">
-              <div class="absolute inset-0 bg-gradient-to-t from-cafe-brown/40 via-transparent to-transparent"></div>
+                   class="absolute inset-0 w-full h-full object-cover object-top lightbox-trigger">
+              <div class="absolute inset-0 bg-gradient-to-t from-cafe-brown/40 via-transparent to-transparent pointer-events-none"></div>
             </div>
           </div>
 
@@ -1009,7 +1036,7 @@
           <article class="reveal tym-karta" style="transition-delay:0s">
             <div class="tym-foto-wrap">
               <div class="tym-foto-fallback" aria-hidden="true">T</div>
-              <img src="assets/zamestnanci/tomas.webp" alt="Fotografie Tomáše" width="474" height="1000" loading="lazy" decoding="async" class="tym-foto" onerror="this.style.opacity='0'">
+              <img src="assets/zamestnanci/tomas.webp" alt="Fotografie Tomáše" width="474" height="1000" loading="lazy" decoding="async" class="tym-foto lightbox-trigger" data-lightbox-group="tym" onerror="this.style.opacity='0'">
             </div>
             <div class="tym-karta-body">
               <h3 class="tym-jmeno">Tomáš</h3>
@@ -1021,7 +1048,7 @@
           <article class="reveal tym-karta" style="transition-delay:.05s">
             <div class="tym-foto-wrap">
               <div class="tym-foto-fallback" aria-hidden="true">S</div>
-              <img src="assets/zamestnanci/standa.webp" alt="Fotografie Standy" width="691" height="1000" loading="lazy" decoding="async" class="tym-foto" onerror="this.style.opacity='0'">
+              <img src="assets/zamestnanci/standa.webp" alt="Fotografie Standy" width="691" height="1000" loading="lazy" decoding="async" class="tym-foto lightbox-trigger" data-lightbox-group="tym" onerror="this.style.opacity='0'">
             </div>
             <div class="tym-karta-body">
               <h3 class="tym-jmeno">Standa</h3>
@@ -1033,7 +1060,7 @@
           <article class="reveal tym-karta" style="transition-delay:.10s">
             <div class="tym-foto-wrap">
               <div class="tym-foto-fallback" aria-hidden="true">R</div>
-              <img src="assets/zamestnanci/risa.webp" alt="Fotografie Ríši" width="755" height="1000" loading="lazy" decoding="async" class="tym-foto" onerror="this.style.opacity='0'">
+              <img src="assets/zamestnanci/risa.webp" alt="Fotografie Ríši" width="755" height="1000" loading="lazy" decoding="async" class="tym-foto lightbox-trigger" data-lightbox-group="tym" onerror="this.style.opacity='0'">
             </div>
             <div class="tym-karta-body">
               <h3 class="tym-jmeno">Ríša</h3>
@@ -1045,7 +1072,7 @@
           <article class="reveal tym-karta" style="transition-delay:.15s">
             <div class="tym-foto-wrap">
               <div class="tym-foto-fallback" aria-hidden="true">P</div>
-              <img src="assets/zamestnanci/petra.webp" alt="Fotografie Petry" width="518" height="1000" loading="lazy" decoding="async" class="tym-foto" onerror="this.style.opacity='0'">
+              <img src="assets/zamestnanci/petra.webp" alt="Fotografie Petry" width="518" height="1000" loading="lazy" decoding="async" class="tym-foto lightbox-trigger" data-lightbox-group="tym" onerror="this.style.opacity='0'">
             </div>
             <div class="tym-karta-body">
               <h3 class="tym-jmeno">Petra</h3>
@@ -1057,7 +1084,7 @@
           <article class="reveal tym-karta" style="transition-delay:.20s">
             <div class="tym-foto-wrap">
               <div class="tym-foto-fallback" aria-hidden="true">E</div>
-              <img src="assets/zamestnanci/evicka.webp" alt="Fotografie Evičky" width="450" height="1000" loading="lazy" decoding="async" class="tym-foto" onerror="this.style.opacity='0'">
+              <img src="assets/zamestnanci/evicka.webp" alt="Fotografie Evičky" width="450" height="1000" loading="lazy" decoding="async" class="tym-foto lightbox-trigger" data-lightbox-group="tym" onerror="this.style.opacity='0'">
             </div>
             <div class="tym-karta-body">
               <h3 class="tym-jmeno">Evička</h3>
@@ -1069,7 +1096,7 @@
           <article class="reveal tym-karta" style="transition-delay:.25s">
             <div class="tym-foto-wrap">
               <div class="tym-foto-fallback" aria-hidden="true">V</div>
-              <img src="assets/zamestnanci/vita.webp" alt="Fotografie Vity" width="728" height="1000" loading="lazy" decoding="async" class="tym-foto" onerror="this.style.opacity='0'">
+              <img src="assets/zamestnanci/vita.webp" alt="Fotografie Vity" width="728" height="1000" loading="lazy" decoding="async" class="tym-foto lightbox-trigger" data-lightbox-group="tym" onerror="this.style.opacity='0'">
             </div>
             <div class="tym-karta-body">
               <h3 class="tym-jmeno">Vita</h3>
@@ -1081,7 +1108,7 @@
           <article class="reveal tym-karta" style="transition-delay:.30s">
             <div class="tym-foto-wrap">
               <div class="tym-foto-fallback" aria-hidden="true">J</div>
-              <img src="assets/zamestnanci/jaja.webp" alt="Fotografie Jáji" width="728" height="1000" loading="lazy" decoding="async" class="tym-foto" onerror="this.style.opacity='0'">
+              <img src="assets/zamestnanci/jaja.webp" alt="Fotografie Jáji" width="728" height="1000" loading="lazy" decoding="async" class="tym-foto lightbox-trigger" data-lightbox-group="tym" onerror="this.style.opacity='0'">
             </div>
             <div class="tym-karta-body">
               <h3 class="tym-jmeno">Jája</h3>
@@ -1190,7 +1217,7 @@
           <div class="lg:col-span-2 reveal lg:sticky lg:top-24">
             <div id="vylet-panel" class="rounded-2xl overflow-hidden bg-cafe-cream/[0.06] ring-1 ring-cafe-cream/15" aria-live="polite">
               <div class="aspect-[4/3] relative overflow-hidden bg-cafe-brown-deep/40">
-                <img id="vylet-panel-img" src="assets/images/interier-kavarny-2-640.webp" alt="Interiér kavárny Holiday CAFE v Dolním Bousově" width="640" height="476" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover">
+                <img id="vylet-panel-img" src="assets/images/interier-kavarny-2-640.webp" alt="Interiér kavárny Holiday CAFE v Dolním Bousově" width="640" height="476" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover lightbox-trigger">
                 <div id="vylet-panel-placeholder" class="absolute inset-0 flex-col items-center justify-center gap-3 text-cafe-cream/25" style="display:none;">
                   <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2v11z"/><circle cx="12" cy="13" r="4"/></svg>
                   <p class="text-xs tracking-widest uppercase font-medium">Foto brzy doplníme</p>
@@ -1216,7 +1243,7 @@
 
             <figure class="reveal rounded-2xl overflow-hidden ring-1 ring-cafe-cream/10">
               <div class="aspect-[4/3]">
-                <img src="assets/images/vylety/hrad-kost.webp" alt="Gotický hrad Kost v Českém ráji" width="547" height="365" loading="lazy" decoding="async" class="w-full h-full object-cover">
+                <img src="assets/images/vylety/hrad-kost.webp" alt="Gotický hrad Kost v Českém ráji" width="547" height="365" loading="lazy" decoding="async" class="w-full h-full object-cover lightbox-trigger" data-lightbox-group="vylety">
               </div>
               <figcaption class="px-4 py-3 bg-cafe-brown-deep/40">
                 <p class="text-sm font-medium text-cafe-cream">Hrad Kost</p>
@@ -1226,7 +1253,7 @@
 
             <figure class="reveal rounded-2xl overflow-hidden ring-1 ring-cafe-cream/10" style="transition-delay:.06s">
               <div class="aspect-[4/3]">
-                <img src="assets/images/vylety/humprecht.webp" alt="Barokní lovecký zámek Humprecht nad Sobotkou" width="516" height="387" loading="lazy" decoding="async" class="w-full h-full object-cover">
+                <img src="assets/images/vylety/humprecht.webp" alt="Barokní lovecký zámek Humprecht nad Sobotkou" width="516" height="387" loading="lazy" decoding="async" class="w-full h-full object-cover lightbox-trigger" data-lightbox-group="vylety">
               </div>
               <figcaption class="px-4 py-3 bg-cafe-brown-deep/40">
                 <p class="text-sm font-medium text-cafe-cream">Zámek Humprecht</p>
@@ -1236,7 +1263,7 @@
 
             <figure class="reveal rounded-2xl overflow-hidden ring-1 ring-cafe-cream/10" style="transition-delay:.12s">
               <div class="aspect-[4/3]">
-                <img src="assets/images/vylety/sobotka-namesti.webp" alt="Náměstí Míru v Sobotce" width="468" height="265" loading="lazy" decoding="async" class="w-full h-full object-cover">
+                <img src="assets/images/vylety/sobotka-namesti.webp" alt="Náměstí Míru v Sobotce" width="468" height="265" loading="lazy" decoding="async" class="w-full h-full object-cover lightbox-trigger" data-lightbox-group="vylety">
               </div>
               <figcaption class="px-4 py-3 bg-cafe-brown-deep/40">
                 <p class="text-sm font-medium text-cafe-cream">Náměstí v Sobotce</p>
@@ -1246,7 +1273,7 @@
 
             <figure class="reveal rounded-2xl overflow-hidden ring-1 ring-cafe-cream/10" style="transition-delay:.18s">
               <div class="aspect-[4/3]">
-                <img src="assets/images/vylety/cesky-raj-prachovske-skaly.webp" alt="Skalní vyhlídka s borovicí v Českém ráji" width="547" height="365" loading="lazy" decoding="async" class="w-full h-full object-cover">
+                <img src="assets/images/vylety/cesky-raj-prachovske-skaly.webp" alt="Skalní vyhlídka s borovicí v Českém ráji" width="547" height="365" loading="lazy" decoding="async" class="w-full h-full object-cover lightbox-trigger" data-lightbox-group="vylety">
               </div>
               <figcaption class="px-4 py-3 bg-cafe-brown-deep/40">
                 <p class="text-sm font-medium text-cafe-cream">Český ráj</p>
@@ -1392,12 +1419,28 @@
         </div>
       </div>
 
-      <div class="mt-8 pt-5 border-t border-cafe-cream/10 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-cafe-cream/30">
-        <p class="italic">Malá přestávka od všeho — jako na dovolené.</p>
+      <div class="mt-8 pt-5 border-t border-cafe-cream/10 flex items-center justify-center sm:justify-end gap-2 text-xs text-cafe-cream/30">
         <p>Vyrobeno <a href="https://www.vizeon.cz" target="_blank" rel="noopener noreferrer" class="hover:text-cafe-gold transition-colors underline underline-offset-2">vizeon.cz</a></p>
       </div>
     </div>
   </footer>
+
+  <!-- ============================================================ LIGHTBOX (zvětšení fotek) ============================================================ -->
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Zvětšená fotografie" aria-hidden="true">
+    <button type="button" id="lightbox-close" class="lightbox-btn" aria-label="Zavřít zvětšenou fotografii">
+      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <button type="button" id="lightbox-prev" class="lightbox-btn" aria-label="Předchozí fotografie">
+      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <button type="button" id="lightbox-next" class="lightbox-btn" aria-label="Další fotografie">
+      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+    <figure id="lightbox-figure">
+      <img id="lightbox-img" src="" alt="">
+      <figcaption id="lightbox-caption"></figcaption>
+    </figure>
+  </div>
 
   <!-- ============================================================ VANILLA JS ============================================================ -->
   <script>
@@ -1579,9 +1622,89 @@
         m.addEventListener('keydown', function (e) {
           if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectVyletBod(m.getAttribute('data-point')); }
         });
-      });supe
+      });
       vyletPills.forEach(function (p) {
         p.addEventListener('click', function () { selectVyletBod(p.getAttribute('data-point')); });
+      });
+
+      /* 7. Lightbox — zvětšení fotek */
+      const lightbox       = document.getElementById('lightbox');
+      const lightboxImg     = document.getElementById('lightbox-img');
+      const lightboxCaption = document.getElementById('lightbox-caption');
+      const lightboxClose   = document.getElementById('lightbox-close');
+      const lightboxPrev    = document.getElementById('lightbox-prev');
+      const lightboxNext    = document.getElementById('lightbox-next');
+      let lightboxGroup = [];
+      let lightboxIndex = -1;
+      let lightboxLastFocus = null;
+
+      function buildLightboxGroup(img) {
+        const groupName = img.getAttribute('data-lightbox-group');
+        if (!groupName) return [img];
+        return Array.prototype.slice.call(document.querySelectorAll('.lightbox-trigger[data-lightbox-group="' + groupName + '"]'));
+      }
+
+      function showLightboxImage() {
+        const img = lightboxGroup[lightboxIndex];
+        if (!img) return;
+        lightboxImg.src = img.currentSrc || img.src;
+        lightboxImg.alt = img.alt || '';
+        lightboxCaption.textContent = img.alt || '';
+        const multi = lightboxGroup.length > 1;
+        lightboxPrev.hidden = !multi;
+        lightboxNext.hidden = !multi;
+      }
+
+      function openLightbox(img) {
+        lightboxGroup = buildLightboxGroup(img);
+        lightboxIndex = lightboxGroup.indexOf(img);
+        lightboxLastFocus = document.activeElement;
+        showLightboxImage();
+        lightbox.classList.add('open');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        lightboxClose.focus();
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove('open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        lightboxImg.src = '';
+        if (lightboxLastFocus && typeof lightboxLastFocus.focus === 'function') lightboxLastFocus.focus();
+      }
+
+      function showLightboxOffset(dir) {
+        if (lightboxGroup.length < 2) return;
+        lightboxIndex = (lightboxIndex + dir + lightboxGroup.length) % lightboxGroup.length;
+        showLightboxImage();
+      }
+
+      document.querySelectorAll('.lightbox-trigger').forEach(function (img) {
+        img.setAttribute('role', 'button');
+        img.setAttribute('tabindex', '0');
+        if (!img.hasAttribute('aria-label')) img.setAttribute('aria-label', 'Zvětšit fotografii: ' + (img.alt || ''));
+        img.addEventListener('click', function () {
+          if (!img.complete || img.naturalWidth === 0) return;
+          openLightbox(img);
+        });
+        img.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            if (img.complete && img.naturalWidth > 0) openLightbox(img);
+          }
+        });
+      });
+
+      lightboxClose.addEventListener('click', closeLightbox);
+      lightboxPrev.addEventListener('click', function () { showLightboxOffset(-1); });
+      lightboxNext.addEventListener('click', function () { showLightboxOffset(1); });
+      lightbox.addEventListener('click', function (e) { if (e.target === lightbox) closeLightbox(); });
+      document.addEventListener('keydown', function (e) {
+        if (!lightbox.classList.contains('open')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') showLightboxOffset(-1);
+        if (e.key === 'ArrowRight') showLightboxOffset(1);
       });
 
     })();
